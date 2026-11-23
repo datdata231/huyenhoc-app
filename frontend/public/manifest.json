@@ -1,6 +1,14 @@
 {
+  "id": "/",
+  "name": "Huyền Học",
   "short_name": "Huyền Học",
-  "name": "Huyền Học Ba Hệ Thống (Kỳ Môn • Tử Vi • Bát Tự)",
+  "description": "Ứng dụng xem huyền học cá nhân: Kỳ Môn Độn Giáp, Tử Vi Đẩu Số, Bát Tự",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#070b12",
+  "theme_color": "#070b12",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -13,17 +21,6 @@
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
-    },
-    {
-      "src": "/icon.svg",
-      "type": "image/svg+xml",
-      "sizes": "any",
-      "purpose": "any"
     }
-  ],
-  "start_url": "/",
-  "background_color": "#070b12",
-  "theme_color": "#070b12",
-  "display": "standalone",
-  "orientation": "portrait"
+  ]
 }

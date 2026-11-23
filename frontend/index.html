@@ -6,22 +6,25 @@
     <title>Huyền Học Ba Hệ Thống | Kỳ Môn • Tử Vi • Bát Tự</title>
     <meta name="description" content="Ứng dụng xem huyền học cá nhân hàng ngày: Kỳ Môn Độn Giáp, Tử Vi Đẩu Số và Bát Tự Tứ Trụ" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#070b12" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Huyền Học" />
-    <link rel="stylesheet" crossorigin href="/assets/index-0eEaTKTS.css">
     <script>
-      // Clear old service worker caches to prevent blank screen / 404s
+      // Đăng ký Service Worker chuẩn PWA để kích hoạt nút cài đặt ở thanh địa chỉ trình duyệt
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(regs) {
-          for (var r of regs) { r.unregister(); }
-        });
-      }
-      if ('caches' in window) {
-        caches.keys().then(function(keys) {
-          for (var k of keys) { caches.delete(k); }
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(function(reg) {
+              console.log('PWA ServiceWorker registered successfully, scope:', reg.scope);
+            })
+            .catch(function(err) {
+              console.warn('PWA ServiceWorker registration failed:', err);
+            });
         });
       }
     </script>

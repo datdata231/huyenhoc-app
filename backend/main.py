@@ -251,5 +251,33 @@ def delete_reading_history_item(history_id: str):
 
 # Mount frontend static files if built
 frontend_dist = BASE_DIR / "frontend" / "dist"
+
+from fastapi.responses import FileResponse
+
+
+@app.get("/sw.js")
+def get_service_worker():
+    sw_file = frontend_dist / "sw.js"
+    if sw_file.exists():
+        return FileResponse(
+            sw_file,
+            media_type="application/javascript",
+            headers={"Cache-Control": "no-cache, no-store, must-revalidate"},
+        )
+    raise HTTPException(status_code=404, detail="sw.js not found")
+
+
+@app.get("/manifest.json")
+def get_manifest():
+    mf_file = frontend_dist / "manifest.json"
+    if mf_file.exists():
+        return FileResponse(
+            mf_file,
+            media_type="application/manifest+json",
+            headers={"Cache-Control": "no-cache, no-store, must-revalidate"},
+        )
+    raise HTTPException(status_code=404, detail="manifest.json not found")
+
+
 if frontend_dist.exists():
     app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
