@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, Users, History, Download, Sparkles, Palette } from 'lucide-react';
+import { Compass, Users, History, Download, Sparkles, Palette, Bell } from 'lucide-react';
 import { ELEMENT_THEMES } from '../utils/theme';
 
 export default function Navbar({
@@ -7,6 +7,7 @@ export default function Navbar({
   onOpenProfiles,
   onOpenHistory,
   onOpenInstall,
+  onOpenNotifications,
   currentTheme = 'Mộc',
   theme,
   onChangeTheme,
@@ -83,6 +84,16 @@ export default function Navbar({
               </div>
             )}
           </div>
+
+          {/* 8:00 AM Daily Notification Bell Button */}
+          <button
+            onClick={onOpenNotifications}
+            className="p-2 rounded-xl bg-[#FAF7F0] border border-amber-900/20 hover:border-amber-600/60 text-amber-800 transition shadow-xs relative"
+            title="Điểm chuông thông báo 8h sáng"
+          >
+            <Bell className="w-4 h-4 text-amber-700" />
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-600 rounded-full border border-white animate-pulse" />
+          </button>
 
           {/* Quick Install PWA Button */}
           <button

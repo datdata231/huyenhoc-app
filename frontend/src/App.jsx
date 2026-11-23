@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Compass, Layers, Flame, Users, History, HelpCircle } from 'lucide-react';
+import { Compass, Layers, Flame, Users, History, HelpCircle, Bell } from 'lucide-react';
 import Navbar from './components/Navbar';
 import ProfileModal from './components/ProfileModal';
 import HistoryDrawer from './components/HistoryDrawer';
 import InstallPrompt from './components/InstallPrompt';
+import NotificationModal from './components/NotificationModal';
+import OrientalHeroBanner from './components/OrientalHeroBanner';
 import QimenTab from './components/QimenTab';
 import ZiweiTab from './components/ZiweiTab';
 import BaziTab from './components/BaziTab';
@@ -27,6 +29,7 @@ export default function App() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isHistoryDrawerOpen, setIsHistoryDrawerOpen] = useState(false);
   const [showInstallGuide, setShowInstallGuide] = useState(false);
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
 
   // Load profiles on mount
   useEffect(() => {
@@ -159,61 +162,90 @@ export default function App() {
           setIsHistoryDrawerOpen(true);
         }}
         onOpenInstall={() => setShowInstallGuide(true)}
+        onOpenNotifications={() => setIsNotificationModalOpen(true)}
       />
 
       {/* PWA Install Banner & Modal */}
       <InstallPrompt forceShowModal={showInstallGuide} onCloseModal={() => setShowInstallGuide(false)} />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-5">
+      <main className="flex-1 max-w-4xl w-full mx-auto p-3.5 sm:p-5">
+        {/* Oriental Hero Banner (Inspired by 5ptiengtrung.vn) */}
+        <OrientalHeroBanner
+          activeProfile={activeProfile}
+          theme={activeThemeObj}
+          currentTheme={currentTheme}
+          activeTab={activeTab}
+          onSwitchTab={(t) => setActiveTab(t)}
+          onOpenNotifications={() => setIsNotificationModalOpen(true)}
+          onOpenProfiles={() => setIsProfileModalOpen(true)}
+        />
+
         {activeTab === 'qimen' && <QimenTab activeProfile={activeProfile} theme={activeThemeObj} />}
         {activeTab === 'ziwei' && <ZiweiTab activeProfile={activeProfile} theme={activeThemeObj} />}
         {activeTab === 'bazi' && <BaziTab activeProfile={activeProfile} theme={activeThemeObj} />}
       </main>
 
-      {/* Mobile-first Bottom Navigation Bar phong cách Đông Phương Sáng */}
-      <nav className="fixed bottom-0 inset-x-0 z-40 bg-[#FFFDF9]/95 backdrop-blur-md border-t border-amber-900/15 shadow-[0_-4px_20px_rgba(40,25,15,0.08)] px-2 py-1.5">
-        <div className="max-w-md mx-auto grid grid-cols-3 gap-1.5">
-          {/* Tab 1: Qimen */}
+      {/* Mobile-first Bottom Navigation Bar phong cách Đông Phương Cổ Kính (like 5ptiengtrung.vn) */}
+      <nav className="fixed bottom-0 inset-x-0 z-40 bg-[#FFFDF9]/95 backdrop-blur-md border-t border-amber-900/20 shadow-[0_-4px_25px_rgba(40,25,15,0.12)] px-2.5 py-1.5">
+        <div className="max-w-md mx-auto grid grid-cols-4 gap-1 sm:gap-2">
+          {/* Tab 1: Sơn Môn (Kỳ Môn) */}
           <button
             onClick={() => setActiveTab('qimen')}
-            className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition ${
+            className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition ${
               activeTab === 'qimen'
-                ? activeThemeObj.navActive
-                : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100/50'
+                ? 'bg-gradient-to-b from-amber-600 to-amber-700 text-white font-bold shadow-md'
+                : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100/60'
             }`}
           >
-            <Compass className={`w-5 h-5 mb-0.5 ${activeTab === 'qimen' ? activeThemeObj.accentText : ''}`} />
-            <span className="text-[11px] tracking-tight">Kỳ Môn Hôm Nay</span>
+            <Compass className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px] tracking-tight">Sơn Môn</span>
           </button>
 
-          {/* Tab 2: Ziwei */}
+          {/* Tab 2: Bảo Tháp (Tử Vi) */}
           <button
             onClick={() => setActiveTab('ziwei')}
-            className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition ${
+            className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition ${
               activeTab === 'ziwei'
-                ? activeThemeObj.navActive
-                : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100/50'
+                ? 'bg-gradient-to-b from-indigo-700 to-indigo-800 text-white font-bold shadow-md'
+                : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100/60'
             }`}
           >
-            <Layers className={`w-5 h-5 mb-0.5 ${activeTab === 'ziwei' ? activeThemeObj.accentText : ''}`} />
-            <span className="text-[11px] tracking-tight">Tử Vi Đẩu Số</span>
+            <Layers className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px] tracking-tight">Bảo Tháp</span>
           </button>
 
-          {/* Tab 3: Bazi */}
+          {/* Tab 3: Chân Mệnh (Bát Tự) */}
           <button
             onClick={() => setActiveTab('bazi')}
-            className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition ${
+            className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition ${
               activeTab === 'bazi'
-                ? activeThemeObj.navActive
-                : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100/50'
+                ? 'bg-gradient-to-b from-emerald-700 to-emerald-800 text-white font-bold shadow-md'
+                : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100/60'
             }`}
           >
-            <Flame className={`w-5 h-5 mb-0.5 ${activeTab === 'bazi' ? activeThemeObj.accentText : ''}`} />
-            <span className="text-[11px] tracking-tight">Bát Tự (Tứ Trụ)</span>
+            <Flame className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px] tracking-tight">Chân Mệnh</span>
+          </button>
+
+          {/* Tab 4: Điểm Chuông 8h */}
+          <button
+            onClick={() => setIsNotificationModalOpen(true)}
+            className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-stone-600 hover:text-stone-900 hover:bg-stone-100/60 transition"
+          >
+            <Bell className="w-4 h-4 mb-0.5 text-amber-700" />
+            <span className="text-[10px] tracking-tight">Chuông 8h</span>
           </button>
         </div>
       </nav>
+
+      {/* 8:00 AM Notification Modal */}
+      <NotificationModal
+        isOpen={isNotificationModalOpen}
+        onClose={() => setIsNotificationModalOpen(false)}
+        activeProfile={activeProfile}
+        theme={activeThemeObj}
+      />
 
       {/* Profile Management Modal */}
       <ProfileModal

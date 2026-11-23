@@ -47,6 +47,15 @@ def init_db() -> None:
                 created_at TEXT NOT NULL
             )
         """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS push_subscriptions (
+                endpoint TEXT PRIMARY KEY,
+                p256dh TEXT NOT NULL,
+                auth TEXT NOT NULL,
+                profile_id TEXT DEFAULT '',
+                created_at TEXT NOT NULL
+            )
+        """)
     conn.close()
 
 
@@ -242,6 +251,45 @@ def delete_history(history_id: str) -> bool:
     conn = get_connection()
     with conn:
         cur = conn.execute("DELETE FROM reading_history WHERE id = ?", (history_id,))
+        count = cur.rowcount
+    conn.close()
+    return count > 0
+
+
+def add_push_subscription(endpoint: str, p256dh: str, auth: str, profile_id: str = "") -> bool:
+    now = datetime.now().isoformat()
+    conn = get_connection()
+    with conn:
+        conn.execute("""
+            INSERT OR REPLACE INTO push_subscriptions (endpoint, p256dh, auth, profile_id, created_at)
+            VALUES (?, ?, ?, ?, ?)
+        """, (endpoint, p256dh, auth, profile_id, now))
+    conn.close()
+    return True
+
+
+def list_push_subscriptions() -> List[Dict[str, Any]]:
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM push_subscriptions ORDER BY created_at DESC")
+    rows = cur.fetchall()
+    conn.close()
+    return [
+        {
+            "endpoint": r["endpoint"],
+            "p256dh": r["p256dh"],
+            "auth": r["auth"],
+            "profile_id": r["profile_id"] or "",
+            "created_at": r["created_at"],
+        }
+        for r in rows
+    ]
+
+
+def delete_push_subscription(endpoint: str) -> bool:
+    conn = get_connection()
+    with conn:
+        cur = conn.execute("DELETE FROM push_subscriptions WHERE endpoint = ?", (endpoint,))
         count = cur.rowcount
     conn.close()
     return count > 0

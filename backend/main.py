@@ -249,6 +249,71 @@ def delete_reading_history_item(history_id: str):
     return {"message": "Đã xóa mục lịch sử thành công"}
 
 
+# --- WEB PUSH NOTIFICATIONS & 8:00 AM DAILY CRON ---
+from backend.config import VAPID_PUBLIC_KEY
+from backend.services.push_service import (
+    broadcast_daily_8am_notification,
+    send_web_push,
+)
+from backend.services.storage import add_push_subscription
+
+
+@app.get("/api/push/vapid-public-key")
+def get_vapid_key():
+    return {"publicKey": VAPID_PUBLIC_KEY}
+
+
+@app.post("/api/push/subscribe")
+def subscribe_push(payload: Dict[str, Any]):
+    endpoint = payload.get("endpoint")
+    keys = payload.get("keys", {})
+    p256dh = keys.get("p256dh") or payload.get("p256dh")
+    auth = keys.get("auth") or payload.get("auth")
+    profile_id = payload.get("profile_id", "")
+
+    if not endpoint or not p256dh or not auth:
+        raise HTTPException(status_code=400, detail="Thiếu thông tin endpoint, p256dh hoặc auth")
+
+    add_push_subscription(endpoint, p256dh, auth, profile_id)
+    return {"status": "ok", "message": "Đã đăng ký nhận thông báo 8h sáng thành công"}
+
+
+@app.post("/api/push/test")
+def test_push_notification(payload: Dict[str, Any]):
+    """Sends an immediate test notification to verify push on the user's phone."""
+    endpoint = payload.get("endpoint")
+    keys = payload.get("keys", {})
+    p256dh = keys.get("p256dh") or payload.get("p256dh")
+    auth = keys.get("auth") or payload.get("auth")
+
+    if not endpoint or not p256dh or not auth:
+        raise HTTPException(status_code=400, detail="Thiếu thông tin push subscription để thử nghiệm")
+
+    test_payload = {
+        "title": "Huyền Học Ba Hệ Thống 🌿",
+        "body": "Thử nghiệm thành công! Bạn sẽ nhận thông báo xem vận trình vào 8:00 sáng mỗi ngày.",
+        "url": "/?src=test_notification",
+        "icon": "/icon-192.png",
+        "badge": "/icon-192.png",
+    }
+    ok = send_web_push({"endpoint": endpoint, "p256dh": p256dh, "auth": auth}, test_payload)
+    if not ok:
+        raise HTTPException(status_code=500, detail="Không thể gửi thông báo thử nghiệm tới trình duyệt")
+    return {"status": "ok", "message": "Đã gửi thông báo thử nghiệm thành công!"}
+
+
+@app.api_route("/api/cron/daily-8am", methods=["GET", "POST", "HEAD"])
+def trigger_daily_8am_cron():
+    """Triggered by GitHub Actions or external cron daily at 8:00 AM (01:00 UTC).
+    Wakes up Render server and broadcasts push notifications to all users' phones."""
+    res = broadcast_daily_8am_notification()
+    return {
+        "status": "ok",
+        "message": "Đã kích hoạt đánh thức server và phát thông báo 8h sáng thành công",
+        "details": res,
+    }
+
+
 # Mount frontend static files if built
 frontend_dist = BASE_DIR / "frontend" / "dist"
 
