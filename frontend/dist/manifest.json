@@ -1,17 +1,29 @@
 {
   "short_name": "Huyền Học",
-  "name": "Huyền Học Ba Hệ Thống (Kỳ Môn - Tử Vi - Bát Tự)",
+  "name": "Huyền Học Ba Hệ Thống (Kỳ Môn • Tử Vi • Bát Tự)",
   "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
     {
       "src": "/icon.svg",
       "type": "image/svg+xml",
-      "sizes": "192x192 512x512",
-      "purpose": "any maskable"
+      "sizes": "any",
+      "purpose": "any"
     }
   ],
   "start_url": "/",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "background_color": "#070b12",
+  "theme_color": "#070b12",
   "display": "standalone",
   "orientation": "portrait"
 }
