@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Huyền Học Ba Hệ Thống | Kỳ Môn • Tử Vi • Bát Tự</title>
+    <meta name="description" content="Ứng dụng xem huyền học cá nhân hàng ngày: Kỳ Môn Độn Giáp, Tử Vi Đẩu Số và Bát Tự Tứ Trụ" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Huyền Học" />
+    <link rel="stylesheet" crossorigin href="/assets/index-0eEaTKTS.css">
+    <script>
+      // Clear old service worker caches to prevent blank screen / 404s
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs) {
+          for (var r of regs) { r.unregister(); }
+        });
+      }
+      if ('caches' in window) {
+        caches.keys().then(function(keys) {
+          for (var k of keys) { caches.delete(k); }
+        });
+      }
+    </script>
+  </head>
+  <body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased select-none pb-20">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

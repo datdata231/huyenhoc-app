@@ -1,0 +1,23 @@
+"""Configuration module for Numerology Backend."""
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env if present
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
+
+VENDOR_DIR = BASE_DIR / "vendor" / "Numerologist_skills"
+DATA_DIR = BASE_DIR / "backend" / "data"
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+DB_PATH = DATA_DIR / "numerology.db"
+
+# LLM Configurations
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+
+# Default Timezone
+DEFAULT_TIMEZONE = "Asia/Ho_Chi_Minh"
