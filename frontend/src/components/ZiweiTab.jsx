@@ -12,7 +12,7 @@ import {
   MAJOR_STARS_MAP, BRIGHTNESS_MAP, SIHUA_MAP, PALACE_NAMES_VN, BRANCH_MAP
 } from '../utils/vietnamese_terms';
 
-export default function ZiweiTab({ activeProfile }) {
+export default function ZiweiTab({ activeProfile, theme }) {
   const currentYear = new Date().getFullYear();
   const [queryYear, setQueryYear] = useState(currentYear);
   const [focusTopic, setFocusTopic] = useState('Tổng quan');
@@ -148,7 +148,7 @@ export default function ZiweiTab({ activeProfile }) {
         <button
           onClick={handleCalculate}
           disabled={loading}
-          className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-700 to-teal-800 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-900/20 transition disabled:opacity-50"
+          className={`w-full py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition disabled:opacity-50 ${theme?.primaryButton || 'bg-gradient-to-r from-emerald-700 to-teal-800 text-white shadow-md'}`}
         >
           {loading ? (
             <>

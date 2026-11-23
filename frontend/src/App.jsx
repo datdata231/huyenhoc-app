@@ -38,6 +38,15 @@ export default function App() {
     }
   }, []);
 
+  // Update dynamic CSS custom properties whenever theme changes
+  useEffect(() => {
+    const root = document.documentElement;
+    const themeObj = ELEMENT_THEMES[currentTheme] || ELEMENT_THEMES['Mộc'];
+    root.setAttribute('data-theme', currentTheme);
+    root.style.setProperty('--corner-color', themeObj.cornerColor);
+    root.style.setProperty('--theme-card-border', themeObj.cornerColor + '40');
+  }, [currentTheme]);
+
   const handleChangeTheme = (themeId) => {
     setCurrentTheme(themeId);
     localStorage.setItem('numerology_theme', themeId);
@@ -134,11 +143,15 @@ export default function App() {
   const activeThemeObj = ELEMENT_THEMES[currentTheme] || ELEMENT_THEMES['Mộc'];
 
   return (
-    <div className={`min-h-screen bg-gradient-to-b ${activeThemeObj.bgGradient} bg-cloud-pattern text-slate-800 flex flex-col selection:bg-amber-200 selection:text-amber-900 transition-colors duration-500`}>
+    <div
+      style={{ color: activeThemeObj.bgPatternColor }}
+      className={`min-h-screen bg-gradient-to-b ${activeThemeObj.bgGradient} bg-cloud-pattern text-slate-800 flex flex-col selection:bg-amber-200 selection:text-amber-900 transition-colors duration-500`}
+    >
       {/* Top Navbar */}
       <Navbar
         activeProfile={activeProfile}
         currentTheme={currentTheme}
+        theme={activeThemeObj}
         onChangeTheme={handleChangeTheme}
         onOpenProfiles={() => setIsProfileModalOpen(true)}
         onOpenHistory={() => {
@@ -153,9 +166,9 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-5">
-        {activeTab === 'qimen' && <QimenTab activeProfile={activeProfile} />}
-        {activeTab === 'ziwei' && <ZiweiTab activeProfile={activeProfile} />}
-        {activeTab === 'bazi' && <BaziTab activeProfile={activeProfile} />}
+        {activeTab === 'qimen' && <QimenTab activeProfile={activeProfile} theme={activeThemeObj} />}
+        {activeTab === 'ziwei' && <ZiweiTab activeProfile={activeProfile} theme={activeThemeObj} />}
+        {activeTab === 'bazi' && <BaziTab activeProfile={activeProfile} theme={activeThemeObj} />}
       </main>
 
       {/* Mobile-first Bottom Navigation Bar phong cách Đông Phương Sáng */}
@@ -166,11 +179,11 @@ export default function App() {
             onClick={() => setActiveTab('qimen')}
             className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition ${
               activeTab === 'qimen'
-                ? 'text-emerald-900 bg-emerald-500/15 font-bold border border-emerald-600/30 shadow-sm'
+                ? activeThemeObj.navActive
                 : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100/50'
             }`}
           >
-            <Compass className={`w-5 h-5 mb-0.5 ${activeTab === 'qimen' ? 'text-emerald-700' : ''}`} />
+            <Compass className={`w-5 h-5 mb-0.5 ${activeTab === 'qimen' ? activeThemeObj.accentText : ''}`} />
             <span className="text-[11px] tracking-tight">Kỳ Môn Hôm Nay</span>
           </button>
 
@@ -179,11 +192,11 @@ export default function App() {
             onClick={() => setActiveTab('ziwei')}
             className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition ${
               activeTab === 'ziwei'
-                ? 'text-purple-900 bg-purple-500/15 font-bold border border-purple-600/30 shadow-sm'
+                ? activeThemeObj.navActive
                 : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100/50'
             }`}
           >
-            <Layers className={`w-5 h-5 mb-0.5 ${activeTab === 'ziwei' ? 'text-purple-700' : ''}`} />
+            <Layers className={`w-5 h-5 mb-0.5 ${activeTab === 'ziwei' ? activeThemeObj.accentText : ''}`} />
             <span className="text-[11px] tracking-tight">Tử Vi Đẩu Số</span>
           </button>
 
@@ -192,11 +205,11 @@ export default function App() {
             onClick={() => setActiveTab('bazi')}
             className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition ${
               activeTab === 'bazi'
-                ? 'text-amber-950 bg-amber-500/15 font-bold border border-amber-600/30 shadow-sm'
+                ? activeThemeObj.navActive
                 : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100/50'
             }`}
           >
-            <Flame className={`w-5 h-5 mb-0.5 ${activeTab === 'bazi' ? 'text-amber-700' : ''}`} />
+            <Flame className={`w-5 h-5 mb-0.5 ${activeTab === 'bazi' ? activeThemeObj.accentText : ''}`} />
             <span className="text-[11px] tracking-tight">Bát Tự (Tứ Trụ)</span>
           </button>
         </div>

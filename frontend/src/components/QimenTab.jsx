@@ -13,7 +13,7 @@ import {
   translateDoorVn, translateGodVn, translateDirectionVn, QIMEN_PALACE_VN
 } from '../utils/vietnamese_terms';
 
-export default function QimenTab({ activeProfile }) {
+export default function QimenTab({ activeProfile, theme }) {
   // Form state
   const [questionType, setQuestionType] = useState('Sự nghiệp');
   const [customType, setCustomType] = useState('');
@@ -290,7 +290,7 @@ export default function QimenTab({ activeProfile }) {
         <button
           onClick={handleCalculate}
           disabled={loading}
-          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-amber-900/20 disabled:opacity-50 transition"
+          className={`w-full py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-50 transition ${theme?.primaryButton || 'bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-md'}`}
         >
           {loading ? (
             <>

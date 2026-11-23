@@ -11,7 +11,7 @@ import InterpretationView from './InterpretationView';
 import { calculateBazi, calculateZiwei, interpretBazi, saveHistory } from '../utils/api';
 import { STEM_MAP, BRANCH_MAP, SHISHEN_MAP } from '../utils/vietnamese_terms';
 
-export default function BaziTab({ activeProfile }) {
+export default function BaziTab({ activeProfile, theme }) {
   const [focusTopic, setFocusTopic] = useState('Tổng quan');
   const [loading, setLoading] = useState(false);
   const [interpreting, setInterpreting] = useState(false);
@@ -147,7 +147,7 @@ export default function BaziTab({ activeProfile }) {
           <button
             onClick={handleCalculate}
             disabled={loading}
-            className="py-2 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition disabled:opacity-50"
+            className={`py-2 px-4 rounded-xl font-bold text-xs flex items-center gap-1.5 transition disabled:opacity-50 ${theme?.primaryButton || 'bg-gradient-to-r from-amber-600 to-amber-500 text-white shadow-sm'}`}
           >
             {loading ? (
               <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
