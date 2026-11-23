@@ -114,18 +114,18 @@ export default function BaziTab({ activeProfile }) {
   const wuxingCounts = calcResult?.wuxing_counts?.counts || {};
 
   return (
-    <div className="space-y-5 pb-8">
-      {/* Profile & Action Bar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm space-y-3">
+    <div className="space-y-4 pb-8">
+      {/* Profile & Action Bar (Á Đông Sáng) */}
+      <div className="bg-[#FFFEFA] border border-amber-900/15 rounded-2xl p-4 shadow-sm space-y-3 oriental-card">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Flame className="w-4 h-4 text-amber-500" />
-            <h2 className="text-xs font-semibold text-amber-400 uppercase tracking-wider">
+            <Flame className="w-4 h-4 text-amber-600" />
+            <h2 className="text-xs font-bold text-amber-900 uppercase tracking-wider">
               Bát Tự Tứ Trụ (Tử Bình Chính Tông)
             </h2>
           </div>
           {activeProfile && (
-            <span className="text-xs font-bold text-slate-200 bg-slate-800 px-2.5 py-0.5 rounded-full border border-slate-700">
+            <span className="text-xs font-bold text-emerald-900 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-300 shadow-xs">
               {activeProfile.name} ({activeProfile.gender === '男' ? 'Nam' : 'Nữ'})
             </span>
           )}
@@ -135,7 +135,7 @@ export default function BaziTab({ activeProfile }) {
           <select
             value={focusTopic}
             onChange={(e) => setFocusTopic(e.target.value)}
-            className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100"
+            className="flex-1 bg-[#FAF7F0] border border-amber-900/20 rounded-xl px-3 py-2 text-xs text-slate-800 font-medium focus:outline-none focus:ring-1 focus:ring-amber-500"
           >
             <option value="Tổng quan">Tổng quan Vận mệnh</option>
             <option value="Sự nghiệp">Sự nghiệp & Cách cục</option>
@@ -147,20 +147,20 @@ export default function BaziTab({ activeProfile }) {
           <button
             onClick={handleCalculate}
             disabled={loading}
-            className="py-2 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow transition disabled:opacity-50"
+            className="py-2 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition disabled:opacity-50"
           >
             {loading ? (
-              <div className="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+              <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
-              <Play className="w-3.5 h-3.5 fill-slate-950" />
+              <Play className="w-3.5 h-3.5 fill-white" />
             )}
             <span>Tính Lại</span>
           </button>
         </div>
 
         {error && (
-          <div className="p-3 bg-rose-950/40 border border-rose-800 rounded-xl text-xs text-rose-300 flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 shrink-0 text-rose-400" />
+          <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 flex items-center gap-2">
+            <ShieldAlert className="w-4 h-4 shrink-0 text-rose-600" />
             <span>{error}</span>
           </div>
         )}
@@ -171,11 +171,14 @@ export default function BaziTab({ activeProfile }) {
           {/* Warnings Banner */}
           <WarningsBanner warnings={calcResult.warnings} />
 
-          {/* Four Pillars Table */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm overflow-hidden">
-            <div className="flex items-center justify-between mb-3 border-b border-slate-800 pb-2">
-              <span className="text-xs font-bold text-slate-200">Bảng Tứ Trụ Bát Tự</span>
-              <span className="text-[11px] text-amber-400">
+          {/* Bảng Tứ Trụ Bát Tự (Phong cách Thẻ Ngọc Á Đông) */}
+          <div className="bg-[#FFFEFA] border border-amber-900/15 rounded-2xl p-4 shadow-sm overflow-hidden oriental-card">
+            <div className="flex items-center justify-between mb-3 border-b border-amber-900/10 pb-2">
+              <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                <span>Bảng Tứ Trụ Bát Tự (Can Chi & Thập Thần)</span>
+              </span>
+              <span className="text-[11px] font-medium text-amber-800">
                 Sinh dương lịch: {calcResult.calendar?.solar?.ymd_hms}
               </span>
             </div>
@@ -193,48 +196,52 @@ export default function BaziTab({ activeProfile }) {
                 return (
                   <div
                     key={pKey}
-                    className={`p-2.5 rounded-xl border flex flex-col justify-between ${
+                    className={`p-2.5 rounded-xl border flex flex-col justify-between transition-all ${
                       isDay
-                        ? 'bg-amber-500/10 border-amber-500/60 shadow-sm ring-1 ring-amber-500/40'
-                        : 'bg-slate-950/80 border-slate-800'
+                        ? 'bg-emerald-50/70 border-emerald-600/50 shadow-md ring-2 ring-emerald-500/25'
+                        : 'bg-[#FAF7F0] border-amber-900/15 hover:border-amber-900/30'
                     }`}
                   >
-                    <span className="text-[10px] text-slate-400 font-medium block mb-1">
-                      {pTitle}
-                    </span>
+                    {/* Header: Trụ & Dấu triện Bản Thân */}
+                    <div className="flex items-center justify-center gap-1 mb-1">
+                      <span className={`text-[10px] font-bold ${isDay ? 'text-emerald-900' : 'text-slate-600'}`}>
+                        {pTitle}
+                      </span>
+                      {isDay && <span className="seal-stamp text-[8px] py-0 px-1">BẢN THÂN</span>}
+                    </div>
 
                     {/* Stem & Shishen */}
                     <div className="my-1">
-                      <span className={`text-[10px] px-1.5 py-0.5 rounded border ${shishenMeta.color || 'bg-slate-800 text-slate-300'}`}>
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded border block mb-1 truncate ${shishenMeta.color || 'bg-amber-100 text-amber-900 border-amber-300'}`}>
                         {pillar.stem_vn_shishen}
                       </span>
-                      <div className="mt-1.5 text-lg font-bold font-mono text-slate-100">
+                      <div className="mt-1 text-2xl font-bold font-serif leading-none">
                         <span className={stemMeta.color}>{pillar.stem}</span>
                       </div>
-                      <span className="text-[11px] text-slate-300 block">{pillar.stem_vn}</span>
+                      <span className="text-[11px] font-bold text-slate-800 block mt-1">{pillar.stem_vn}</span>
                       <span className="text-[9px] text-slate-500 block">({stemMeta.element})</span>
                     </div>
 
-                    <div className="w-full border-t border-slate-800/80 my-1.5" />
+                    <div className="w-full border-t border-amber-900/10 my-1.5" />
 
-                    {/* Branch với Linh Vật 12 Con Giáp Trực Quan */}
+                    {/* Branch với Huy hiệu Linh Vật 12 Con Giáp Trực Quan */}
                     <div className="my-1.5 flex flex-col items-center">
                       <ZodiacBadge branch={pillar.branch} size="md" showHanzi={true} />
-                      <span className="text-[12px] font-bold text-slate-200 mt-1 block">
+                      <span className="text-[12px] font-bold text-slate-900 mt-1 block">
                         {pillar.branch_vn}
                       </span>
-                      <span className="text-[10px] text-amber-300/90 font-medium block">
+                      <span className="text-[10px] text-amber-900 font-semibold block">
                         ({branchMeta.animal} • {branchMeta.element})
                       </span>
                     </div>
 
-                    {/* Hidden Stems */}
-                    <div className="mt-2 pt-1.5 border-t border-slate-800/80 space-y-1">
-                      <span className="text-[9px] text-slate-400 block font-semibold">Tàng can:</span>
+                    {/* Hidden Stems (Tàng can) */}
+                    <div className="mt-2 pt-1.5 border-t border-amber-900/10 space-y-1">
+                      <span className="text-[9px] text-slate-500 block font-semibold">Tàng can:</span>
                       {pillar.hidden_details?.map((hd, hIdx) => (
-                        <div key={hIdx} className="text-[10px] flex items-center justify-between text-slate-300 bg-slate-900/60 px-1 py-0.5 rounded">
-                          <span className="font-mono text-amber-400">{hd.stem}</span>
-                          <span className="text-[9px] text-slate-400">{hd.vn_shishen}</span>
+                        <div key={hIdx} className="text-[10px] flex items-center justify-between text-slate-800 bg-white/80 px-1.5 py-0.5 rounded border border-amber-900/10">
+                          <span className="font-serif font-bold text-amber-900">{hd.stem}</span>
+                          <span className="text-[9px] text-slate-600">{hd.vn_shishen}</span>
                         </div>
                       ))}
                     </div>
@@ -246,36 +253,44 @@ export default function BaziTab({ activeProfile }) {
 
           {/* Day Master & Five Elements distribution */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            {/* Day Master */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-sm space-y-1.5">
-              <span className="text-xs font-bold text-amber-400 block">Nhật Chủ (Bản Thân)</span>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-slate-100 font-mono">{dm?.stem}</span>
-                <div>
-                  <div className="font-semibold text-slate-200">
-                    {dm?.vn} • Ngũ hành: {dm?.vn_element} ({dm?.yinyang})
+            {/* Day Master (Phiến Ngọc Giáp Mộc Cung Đình) */}
+            <div className="bg-[#FFFEFA] border border-emerald-600/30 rounded-2xl p-4 shadow-sm space-y-2 oriental-card">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-emerald-900 block flex items-center gap-1.5">
+                  <span>🌿</span>
+                  <span>Nhật Chủ: {dm?.vn} ({dm?.stem})</span>
+                </span>
+                <span className="seal-stamp text-[9px]">MỆNH MỘC</span>
+              </div>
+              <div className="flex items-center gap-3 pt-1">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-100 border border-emerald-300 flex items-center justify-center text-2xl font-serif font-bold text-emerald-900 shadow-inner">
+                  {dm?.stem}
+                </div>
+                <div className="space-y-0.5">
+                  <div className="font-bold text-slate-900 text-sm">
+                    {dm?.vn} Mộc ({dm?.yinyang}) • Cây Đại Thụ
                   </div>
-                  <div className="text-[11px] text-slate-400">
-                    Sinh vào tháng {dm?.born_in_month_vn} ({dm?.born_in_month}): {dm?.is_dangling ? 'Đắc Lệnh tháng' : 'Không đắc lệnh'}
+                  <div className="text-[11px] text-slate-600">
+                    Sinh tháng <strong>{dm?.born_in_month_vn}</strong> ({dm?.born_in_month}): {dm?.is_dangling ? '✨ Đắc Lệnh tháng (Vượng khí)' : 'Cần bồi đắp khí lực'}
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Five Elements count */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-sm space-y-1.5">
-              <span className="text-xs font-bold text-slate-300 block">Phân Bổ Ngũ Hành (4 Can + 4 Chi)</span>
+            <div className="bg-[#FFFEFA] border border-amber-900/15 rounded-2xl p-4 shadow-sm space-y-2 oriental-card">
+              <span className="text-xs font-bold text-slate-900 block">Phân Bổ Ngũ Hành (4 Can + 4 Chi)</span>
               <div className="grid grid-cols-5 gap-1.5 text-center pt-1">
                 {[
-                  { key: '木', label: 'Mộc', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
-                  { key: '火', label: 'Hỏa', color: 'bg-rose-500/20 text-rose-300 border-rose-500/40' },
-                  { key: '土', label: 'Thổ', color: 'bg-amber-500/20 text-amber-300 border-amber-500/40' },
-                  { key: '金', label: 'Kim', color: 'bg-slate-400/20 text-slate-200 border-slate-400/40' },
-                  { key: '水', label: 'Thủy', color: 'bg-sky-500/20 text-sky-300 border-sky-500/40' },
+                  { key: '木', label: 'Mộc', color: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+                  { key: '火', label: 'Hỏa', color: 'bg-rose-50 text-rose-800 border-rose-300' },
+                  { key: '土', label: 'Thổ', color: 'bg-amber-50 text-amber-900 border-amber-300' },
+                  { key: '金', label: 'Kim', color: 'bg-slate-100 text-slate-800 border-slate-300' },
+                  { key: '水', label: 'Thủy', color: 'bg-sky-50 text-sky-800 border-sky-300' },
                 ].map((elem) => (
-                  <div key={elem.key} className={`p-1.5 rounded-xl border ${elem.color}`}>
-                    <span className="text-[10px] block">{elem.label}</span>
-                    <span className="text-sm font-bold block">{wuxingCounts[elem.key] || 0}</span>
+                  <div key={elem.key} className={`p-1.5 rounded-xl border ${elem.color} shadow-xs`}>
+                    <span className="text-[10px] font-medium block">{elem.label}</span>
+                    <span className="text-base font-bold block">{wuxingCounts[elem.key] || 0}</span>
                   </div>
                 ))}
               </div>
@@ -284,36 +299,36 @@ export default function BaziTab({ activeProfile }) {
 
           {/* Branch Interactions */}
           {interactions && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-sm space-y-2 text-xs">
-              <span className="text-xs font-bold text-sky-400 block">Tương Tác Địa Chi</span>
+            <div className="bg-[#FFFEFA] border border-amber-900/15 rounded-2xl p-4 shadow-sm space-y-2 text-xs oriental-card">
+              <span className="text-xs font-bold text-sky-900 block">Tương Tác Địa Chi</span>
               <div className="space-y-1">
                 {interactions.liu_chong?.length > 0 && (
-                  <div className="text-rose-300">
+                  <div className="text-rose-800 font-medium">
                     ⚠️ <strong>Lục xung:</strong> {interactions.liu_chong.map((x) => x.name).join(', ')}
                   </div>
                 )}
                 {interactions.liu_he?.length > 0 && (
-                  <div className="text-emerald-300">
+                  <div className="text-emerald-800 font-medium">
                     ✨ <strong>Lục hợp:</strong> {interactions.liu_he.map((x) => x.name).join(', ')}
                   </div>
                 )}
                 {interactions.san_he?.length > 0 && (
-                  <div className="text-amber-300">
+                  <div className="text-amber-900 font-medium">
                     🌟 <strong>Tam hợp / Bán hợp:</strong> {interactions.san_he.map((x) => x.name).join(', ')}
                   </div>
                 )}
                 {interactions.san_xing?.length > 0 && (
-                  <div className="text-orange-300">
+                  <div className="text-orange-900 font-medium">
                     ⚡ <strong>Tam hình:</strong> {interactions.san_xing.map((x) => x.name).join(', ')}
                   </div>
                 )}
                 {interactions.zi_xing?.length > 0 && (
-                  <div className="text-purple-300">
+                  <div className="text-purple-900 font-medium">
                     🌀 <strong>Tự hình:</strong> {interactions.zi_xing.map((x) => x.name).join(', ')}
                   </div>
                 )}
                 {Object.values(interactions).every((arr) => !arr || arr.length === 0) && (
-                  <div className="text-slate-400">Không có xung hình hợp đặc biệt trong nguyên cục, khí thế ổn định.</div>
+                  <div className="text-slate-600">Không có xung hình hợp cực đoan trong nguyên cục, khí thế ổn định.</div>
                 )}
               </div>
             </div>
@@ -321,16 +336,16 @@ export default function BaziTab({ activeProfile }) {
 
           {/* DaYun Pillars (Đại Vận) */}
           {dayun && dayun.pillars && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm space-y-2.5">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+            <div className="bg-[#FFFEFA] border border-amber-900/15 rounded-2xl p-4 shadow-sm space-y-2.5 oriental-card">
+              <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
                 <div>
-                  <span className="text-xs font-bold text-slate-200 block">Chu Kỳ Đại Vận (10 Năm / Vận)</span>
-                  <span className="text-[10px] text-slate-400">
+                  <span className="text-xs font-bold text-slate-900 block">Chu Kỳ Đại Vận (10 Năm / Vận)</span>
+                  <span className="text-[10px] text-slate-600">
                     Khởi vận: {dayun.start_age_display} ({dayun.direction_text})
                   </span>
                 </div>
                 {dayun.start_solar_date && (
-                  <span className="text-[10px] text-amber-400 font-mono">
+                  <span className="text-[10px] text-amber-900 font-semibold">
                     Ngày khởi: {dayun.start_solar_date}
                   </span>
                 )}
@@ -341,16 +356,16 @@ export default function BaziTab({ activeProfile }) {
                 {dayun.pillars.map((dy) => (
                   <div
                     key={dy.index}
-                    className="shrink-0 p-2.5 rounded-xl border border-slate-800 bg-slate-950 text-center w-20 flex flex-col justify-between"
+                    className="shrink-0 p-2.5 rounded-xl border border-amber-900/15 bg-[#FAF7F0] text-center w-20 flex flex-col justify-between shadow-xs hover:border-amber-600 transition"
                   >
-                    <span className="text-[10px] text-slate-400 font-mono block">
+                    <span className="text-[10px] text-slate-600 font-bold block">
                       {dy.start_age}-{dy.end_age}t
                     </span>
                     <div className="my-1">
-                      <span className="text-base font-bold text-amber-300 block font-mono">
+                      <span className="text-base font-bold font-serif text-amber-900 block">
                         {dy.ganzhi}
                       </span>
-                      <span className="text-[10px] text-slate-300 block">{dy.vn_ganzhi}</span>
+                      <span className="text-[10px] font-semibold text-slate-800 block">{dy.vn_ganzhi}</span>
                     </div>
                     <span className="text-[9px] text-slate-500 font-mono block">
                       {dy.start_year}
@@ -362,41 +377,41 @@ export default function BaziTab({ activeProfile }) {
           )}
 
           {/* Cross-Check Button */}
-          <div className="p-3 rounded-2xl bg-gradient-to-r from-amber-950/40 to-purple-950/40 border border-amber-800/40 flex items-center justify-between">
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-100/80 via-emerald-100/70 to-amber-100/80 border border-amber-500/30 flex items-center justify-between shadow-xs">
             <div className="flex items-center gap-2">
-              <GitCompare className="w-4 h-4 text-amber-400" />
+              <GitCompare className="w-4 h-4 text-amber-800" />
               <div>
-                <span className="text-xs font-bold text-slate-200 block">Đối chiếu chéo với Tử Vi</span>
-                <span className="text-[10px] text-slate-400 block">So sánh điểm tương đồng và bổ khuyết giữa 2 môn phái</span>
+                <span className="text-xs font-bold text-slate-900 block">Đối chiếu chéo với Tử Vi</span>
+                <span className="text-[10px] text-slate-600 block">So sánh điểm tương đồng và bổ khuyết giữa 2 môn phái</span>
               </div>
             </div>
             <button
               onClick={() => setOpenCrossCheck(true)}
-              className="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow transition"
+              className="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition"
             >
               Xem Đối Chiếu
             </button>
           </div>
 
           {/* AI Interpretation Section */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
-            <div className="flex items-center justify-between mb-3 border-b border-slate-800 pb-2">
-              <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
-                <Sparkles className="w-4 h-4" />
-                <span>Luận Giải Tứ Trụ Bát Tự (8 Mục Chuẩn SKILL.md)</span>
+          <div className="bg-[#FFFEFA] border border-amber-900/15 rounded-2xl p-4 shadow-sm oriental-card">
+            <div className="flex items-center justify-between mb-3 border-b border-amber-900/10 pb-2">
+              <div className="flex items-center gap-2 text-amber-900 font-bold text-sm">
+                <Sparkles className="w-4 h-4 text-amber-600" />
+                <span>Luận Giải Tứ Trụ Bát Tự</span>
               </div>
               <button
                 onClick={handleSave}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#FAF7F0] hover:bg-amber-100 border border-amber-900/15 text-xs text-amber-950 transition font-medium"
               >
                 {savedSuccess ? (
                   <>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Đã lưu</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="text-emerald-700 font-bold">Đã lưu</span>
                   </>
                 ) : (
                   <>
-                    <BookmarkPlus className="w-3.5 h-3.5 text-amber-400" />
+                    <BookmarkPlus className="w-3.5 h-3.5 text-amber-700" />
                     <span>Lưu lá số</span>
                   </>
                 )}
@@ -405,9 +420,9 @@ export default function BaziTab({ activeProfile }) {
 
             {interpreting ? (
               <div className="py-8 text-center space-y-2">
-                <div className="w-6 h-6 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs text-amber-300 font-medium">Bậc Thầy đang thẩm định Nhật Chủ, Hỷ Dụng Thần & Đại Vận...</p>
-                <p className="text-[11px] text-slate-400">Đang biên soạn cả Lời Khuyên Đời Thường và Hồ Sơ Kỹ Thuật...</p>
+                <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto" />
+                <p className="text-xs text-emerald-900 font-bold">Bậc Thầy đang thẩm định Nhật Chủ, Hỷ Dụng Thần & Đại Vận...</p>
+                <p className="text-[11px] text-slate-600">Đang biên soạn cả Lời Khuyên Đời Thường và Hồ Sơ Kỹ Thuật...</p>
               </div>
             ) : interpretation ? (
               <InterpretationView interpretation={interpretation} title="Luận Giải Bát Tự" />

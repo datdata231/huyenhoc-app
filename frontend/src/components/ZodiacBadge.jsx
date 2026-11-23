@@ -210,18 +210,18 @@ const ZODIAC_ICONS = {
 };
 
 const ZODIAC_METAS = {
-  '子': { vn: 'Tý', animal: 'Chuột', element: 'Thủy', elementVn: 'Thủy', colorClass: 'text-sky-400 border-sky-500/40 bg-sky-950/40 shadow-sky-500/10' },
-  '丑': { vn: 'Sửu', animal: 'Trâu', element: 'Thổ', elementVn: 'Thổ', colorClass: 'text-amber-400 border-amber-500/40 bg-amber-950/40 shadow-amber-500/10' },
-  '寅': { vn: 'Dần', animal: 'Hổ', element: 'Mộc', elementVn: 'Mộc', colorClass: 'text-emerald-400 border-emerald-500/40 bg-emerald-950/40 shadow-emerald-500/10' },
-  '卯': { vn: 'Mão', animal: 'Mèo', element: 'Mộc', elementVn: 'Mộc', colorClass: 'text-emerald-300 border-emerald-500/40 bg-emerald-950/40 shadow-emerald-500/10' },
-  '辰': { vn: 'Thìn', animal: 'Rồng', element: 'Thổ', elementVn: 'Thổ', colorClass: 'text-amber-400 border-amber-500/40 bg-amber-950/40 shadow-amber-500/10' },
-  '巳': { vn: 'Tỵ', animal: 'Rắn', element: 'Hỏa', elementVn: 'Hỏa', colorClass: 'text-rose-400 border-rose-500/40 bg-rose-950/40 shadow-rose-500/10' },
-  '午': { vn: 'Ngọ', animal: 'Ngựa', element: 'Hỏa', elementVn: 'Hỏa', colorClass: 'text-rose-500 border-rose-500/40 bg-rose-950/40 shadow-rose-500/10' },
-  '未': { vn: 'Mùi', animal: 'Dê', element: 'Thổ', elementVn: 'Thổ', colorClass: 'text-amber-300 border-amber-500/40 bg-amber-950/40 shadow-amber-500/10' },
-  '申': { vn: 'Thân', animal: 'Khỉ', element: 'Kim', elementVn: 'Kim', colorClass: 'text-slate-100 border-slate-400/40 bg-slate-800/60 shadow-slate-400/10' },
-  '酉': { vn: 'Dậu', animal: 'Gà', element: 'Kim', elementVn: 'Kim', colorClass: 'text-slate-200 border-slate-400/40 bg-slate-800/60 shadow-slate-400/10' },
-  '戌': { vn: 'Tuất', animal: 'Chó', element: 'Thổ', elementVn: 'Thổ', colorClass: 'text-amber-400 border-amber-500/40 bg-amber-950/40 shadow-amber-500/10' },
-  '亥': { vn: 'Hợi', animal: 'Lợn', element: 'Thủy', elementVn: 'Thủy', colorClass: 'text-sky-300 border-sky-500/40 bg-sky-950/40 shadow-sky-500/10' },
+  '子': { vn: 'Tý', animal: 'Chuột', element: 'Thủy', elementVn: 'Thủy', colorClass: 'text-sky-800 border-sky-300 bg-sky-50 shadow-sm' },
+  '丑': { vn: 'Sửu', animal: 'Trâu', element: 'Thổ', elementVn: 'Thổ', colorClass: 'text-amber-800 border-amber-300 bg-amber-50 shadow-sm' },
+  '寅': { vn: 'Dần', animal: 'Hổ', element: 'Mộc', elementVn: 'Mộc', colorClass: 'text-emerald-800 border-emerald-300 bg-emerald-50 shadow-sm' },
+  '卯': { vn: 'Mão', animal: 'Mèo', element: 'Mộc', elementVn: 'Mộc', colorClass: 'text-emerald-700 border-emerald-300 bg-emerald-50 shadow-sm' },
+  '辰': { vn: 'Thìn', animal: 'Rồng', element: 'Thổ', elementVn: 'Thổ', colorClass: 'text-amber-800 border-amber-300 bg-amber-50 shadow-sm' },
+  '巳': { vn: 'Tỵ', animal: 'Rắn', element: 'Hỏa', elementVn: 'Hỏa', colorClass: 'text-rose-800 border-rose-300 bg-rose-50 shadow-sm' },
+  '午': { vn: 'Ngọ', animal: 'Ngựa', element: 'Hỏa', elementVn: 'Hỏa', colorClass: 'text-rose-800 border-rose-300 bg-rose-50 shadow-sm' },
+  '未': { vn: 'Mùi', animal: 'Dê', element: 'Thổ', elementVn: 'Thổ', colorClass: 'text-amber-800 border-amber-300 bg-amber-50 shadow-sm' },
+  '申': { vn: 'Thân', animal: 'Khỉ', element: 'Kim', elementVn: 'Kim', colorClass: 'text-slate-800 border-amber-400 bg-amber-50/80 shadow-sm' },
+  '酉': { vn: 'Dậu', animal: 'Gà', element: 'Kim', elementVn: 'Kim', colorClass: 'text-slate-800 border-amber-400 bg-amber-50/80 shadow-sm' },
+  '戌': { vn: 'Tuất', animal: 'Chó', element: 'Thổ', elementVn: 'Thổ', colorClass: 'text-amber-800 border-amber-300 bg-amber-50 shadow-sm' },
+  '亥': { vn: 'Hợi', animal: 'Lợn', element: 'Thủy', elementVn: 'Thủy', colorClass: 'text-sky-800 border-sky-300 bg-sky-50 shadow-sm' },
 };
 
 export default function ZodiacBadge({ branch, size = 'md', showLabel = false, showHanzi = true }) {
@@ -229,7 +229,7 @@ export default function ZodiacBadge({ branch, size = 'md', showLabel = false, sh
     vn: branch,
     animal: 'Linh vật',
     element: 'Ngũ hành',
-    colorClass: 'text-amber-400 border-amber-500/40 bg-amber-950/30',
+    colorClass: 'text-amber-800 border-amber-300 bg-amber-50',
   };
 
   const iconSvg = ZODIAC_ICONS[branch];
@@ -260,7 +260,7 @@ export default function ZodiacBadge({ branch, size = 'md', showLabel = false, sh
 
         {/* Dấu ấn Triện Hán nhỏ ở góc dưới */}
         {showHanzi && (
-          <span className="absolute -bottom-1 -right-1 text-[8px] font-serif font-bold px-1 py-0.2 rounded-full bg-slate-950/90 text-amber-300 border border-amber-500/50 leading-tight">
+          <span className="absolute -bottom-1 -right-1 text-[8px] font-serif font-bold px-1 py-0.2 rounded-full bg-white text-amber-900 border border-amber-500 shadow-sm leading-tight">
             {branch}
           </span>
         )}
@@ -271,7 +271,7 @@ export default function ZodiacBadge({ branch, size = 'md', showLabel = false, sh
           <span className={`block font-bold leading-tight ${meta.colorClass.split(' ')[0]}`}>
             {meta.vn} ({meta.animal})
           </span>
-          <span className="text-[9px] text-slate-400">
+          <span className="text-[9px] text-slate-500">
             Hành {meta.element}
           </span>
         </div>

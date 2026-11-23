@@ -69,17 +69,17 @@ export default function InstallPrompt({ forceShowModal = false, onCloseModal }) 
     <>
       {/* Mobile Top Install Banner (luôn hiển thị nổi bật trên điện thoại nếu chưa cài đặt) */}
       {!bannerDismissed && !isStandalone && (
-        <div className="bg-gradient-to-r from-amber-950 via-emerald-950 to-slate-950 border-b border-amber-500/40 px-3 py-2 text-xs flex items-center justify-between text-amber-100 shadow-md transition-all">
+        <div className="bg-gradient-to-r from-amber-50 via-emerald-50 to-amber-100/90 border-b border-amber-900/15 px-3 py-2 text-xs flex items-center justify-between text-slate-800 shadow-sm transition-all">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/30 border border-amber-500/60 flex items-center justify-center shrink-0">
-              <Smartphone className="w-4 h-4 text-amber-300" />
+            <div className="w-7 h-7 rounded-lg bg-amber-200/60 border border-amber-400 flex items-center justify-center shrink-0">
+              <Smartphone className="w-4 h-4 text-amber-800" />
             </div>
             <div>
-              <span className="font-bold text-amber-200 block text-[11px] leading-tight">
+              <span className="font-bold text-amber-950 block text-[11px] leading-tight">
                 Cài đặt Huyền Học về Màn hình chính
               </span>
-              <span className="text-[10px] text-slate-300">
-                {isSamsung ? 'Hỗ trợ Samsung Internet: Thêm vào MH chờ' : 'Mở nhanh 1 chạm, dùng toàn màn hình 24/7'}
+              <span className="text-[10px] text-slate-600">
+                {isSamsung ? 'Samsung Internet: Bấm biểu tượng (⬇) trên thanh địa chỉ' : 'Mở nhanh 1 chạm, dùng toàn màn hình 24/7'}
               </span>
             </div>
           </div>
@@ -87,14 +87,14 @@ export default function InstallPrompt({ forceShowModal = false, onCloseModal }) 
           <div className="flex items-center gap-1.5 shrink-0 ml-2">
             <button
               onClick={handleInstallClick}
-              className="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-[11px] shadow-sm flex items-center gap-1 transition"
+              className="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-white font-bold text-[11px] shadow-sm flex items-center gap-1 transition"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 text-white" />
               <span>Cài Ngay</span>
             </button>
             <button
               onClick={handleDismissBanner}
-              className="p-1 rounded text-slate-400 hover:text-slate-200"
+              className="p-1 rounded text-slate-500 hover:text-slate-800"
               title="Đóng thông báo"
             >
               <X className="w-4 h-4" />
@@ -105,22 +105,22 @@ export default function InstallPrompt({ forceShowModal = false, onCloseModal }) 
 
       {/* Modal Hướng Dẫn Cài Đặt Thông Minh (Tự động nhận diện Samsung Browser / Chrome / Safari) */}
       {isModalVisible && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-slate-900 border border-amber-500/40 rounded-2xl max-w-sm w-full p-5 shadow-2xl space-y-4 text-slate-100 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-[#FFFDF9] border border-amber-900/20 rounded-2xl max-w-sm w-full p-5 shadow-2xl space-y-4 text-slate-800 relative">
             <button
               onClick={handleCloseModal}
-              className="absolute top-3.5 right-3.5 p-1 rounded-lg text-slate-400 hover:text-slate-200 bg-slate-800/60"
+              className="absolute top-3.5 right-3.5 p-1.5 rounded-lg text-slate-500 hover:text-slate-900 bg-amber-50"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="flex items-center gap-2.5 text-amber-400">
-              <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-amber-400" />
+            <div className="flex items-center gap-2.5 text-amber-800">
+              <div className="w-9 h-9 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-amber-700" />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-slate-100">Cài Đặt Về Màn Hình Điện Thoại</h3>
-                <p className="text-[11px] text-amber-300/80">
+                <h3 className="font-bold text-sm text-slate-900">Cài Đặt Về Màn Hình Điện Thoại</h3>
+                <p className="text-[11px] text-amber-800/80">
                   {isSamsung ? 'Dành riêng cho Samsung Internet' : isIOS ? 'Dành riêng cho Safari (iPhone/iPad)' : 'Dành cho Android & Chrome'}
                 </p>
               </div>
@@ -128,30 +128,30 @@ export default function InstallPrompt({ forceShowModal = false, onCloseModal }) 
 
             {isSamsung ? (
               // Hướng dẫn dành riêng cho trình duyệt SAMSUNG INTERNET BROWSER
-              <div className="space-y-3 text-xs text-slate-300 bg-slate-950/70 p-3.5 rounded-xl border border-amber-500/20">
-                <p className="font-semibold text-amber-300 text-[11px] flex items-center gap-1.5">
-                  <Compass className="w-3.5 h-3.5 text-amber-400" />
+              <div className="space-y-3 text-xs text-slate-700 bg-[#FAF7F0] p-3.5 rounded-xl border border-amber-900/10">
+                <p className="font-semibold text-amber-900 text-[11px] flex items-center gap-1.5">
+                  <Compass className="w-3.5 h-3.5 text-amber-700" />
                   <span>Cách cài đặt trên Samsung Internet:</span>
                 </p>
 
-                <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200">
+                <div className="p-2.5 rounded-lg bg-amber-100/70 border border-amber-300 text-[11px] text-amber-950">
                   💡 <strong>Cách 1 (Nhanh nhất):</strong> Nhìn lên thanh địa chỉ trên cùng, bấm vào biểu tượng <strong>Mũi tên tải xuống (⬇)</strong> ở góc phải thanh địa chỉ.
                 </div>
 
-                <div className="space-y-2 pt-1 border-t border-slate-800">
-                  <p className="font-semibold text-slate-200 text-[11px]">Hoặc làm theo 3 bước sau:</p>
+                <div className="space-y-2 pt-1 border-t border-amber-200">
+                  <p className="font-semibold text-slate-800 text-[11px]">Hoặc làm theo 3 bước sau:</p>
                   
                   <div className="flex items-start gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px]">
+                    <div className="w-5 h-5 rounded-full bg-amber-200 text-amber-900 font-bold flex items-center justify-center shrink-0 text-[10px]">
                       1
                     </div>
                     <div>
-                      Nhìn xuống thanh công cụ <strong>ở góc dưới cùng bên phải</strong> của màn hình, chạm vào biểu tượng <strong>3 dấu gạch ngang (☰)</strong>.
+                      Nhìn xuống thanh công cụ <strong>ở góc dưới cùng bên phải</strong> màn hình, chạm vào biểu tượng <strong>3 dấu gạch ngang (☰)</strong>.
                     </div>
                   </div>
 
                   <div className="flex items-start gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px]">
+                    <div className="w-5 h-5 rounded-full bg-amber-200 text-amber-900 font-bold flex items-center justify-center shrink-0 text-[10px]">
                       2
                     </div>
                     <div>
@@ -160,41 +160,41 @@ export default function InstallPrompt({ forceShowModal = false, onCloseModal }) 
                   </div>
 
                   <div className="flex items-start gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px]">
+                    <div className="w-5 h-5 rounded-full bg-amber-200 text-amber-900 font-bold flex items-center justify-center shrink-0 text-[10px]">
                       3
                     </div>
                     <div>
-                      Chọn tiếp dòng: <strong>"Màn hình Chờ"</strong> (hoặc <em>Home screen</em> / <em>Cài đặt ứng dụng web</em>). Bấm <strong>Thêm</strong> là hoàn tất!
+                      Chọn tiếp dòng: <strong>"Màn hình Chờ"</strong> (hoặc <em>Home screen</em>). Bấm <strong>Thêm</strong> là hoàn tất!
                     </div>
                   </div>
                 </div>
               </div>
             ) : isIOS ? (
               // Hướng dẫn dành riêng cho Safari trên iPhone/iPad
-              <div className="space-y-3 text-xs text-slate-300 bg-slate-950/60 p-3.5 rounded-xl border border-slate-800">
-                <p className="font-semibold text-amber-300 text-[11px]">
+              <div className="space-y-3 text-xs text-slate-700 bg-[#FAF7F0] p-3.5 rounded-xl border border-amber-900/10">
+                <p className="font-semibold text-amber-900 text-[11px]">
                   Các bước cài đặt trên trình duyệt Safari:
                 </p>
                 <div className="flex items-start gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px]">
+                  <div className="w-5 h-5 rounded-full bg-amber-200 text-amber-900 font-bold flex items-center justify-center shrink-0 text-[10px]">
                     1
                   </div>
                   <div>
-                    Nhìn xuống đáy Safari, bấm biểu tượng <strong>Chia sẻ</strong> (<Share2 className="w-3.5 h-3.5 inline text-sky-400 mx-0.5" /> ô vuông có mũi tên lên).
+                    Nhìn xuống đáy Safari, bấm biểu tượng <strong>Chia sẻ</strong> (<Share2 className="w-3.5 h-3.5 inline text-sky-700 mx-0.5" /> ô vuông có mũi tên lên).
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px]">
+                  <div className="w-5 h-5 rounded-full bg-amber-200 text-amber-900 font-bold flex items-center justify-center shrink-0 text-[10px]">
                     2
                   </div>
                   <div>
-                    Cuộn danh sách chọn: <strong>"Thêm vào Màn hình chính"</strong> (<PlusSquare className="w-3.5 h-3.5 inline text-emerald-400 mx-0.5" /> <em>Add to Home Screen</em>).
+                    Cuộn danh sách chọn: <strong>"Thêm vào Màn hình chính"</strong> (<PlusSquare className="w-3.5 h-3.5 inline text-emerald-700 mx-0.5" /> <em>Add to Home Screen</em>).
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px]">
+                  <div className="w-5 h-5 rounded-full bg-amber-200 text-amber-900 font-bold flex items-center justify-center shrink-0 text-[10px]">
                     3
                   </div>
                   <div>
@@ -204,12 +204,12 @@ export default function InstallPrompt({ forceShowModal = false, onCloseModal }) 
               </div>
             ) : (
               // Hướng dẫn cho Chrome trên Android
-              <div className="space-y-3 text-xs text-slate-300 bg-slate-950/60 p-3.5 rounded-xl border border-slate-800">
-                <p className="font-semibold text-amber-300 text-[11px]">
+              <div className="space-y-3 text-xs text-slate-700 bg-[#FAF7F0] p-3.5 rounded-xl border border-amber-900/10">
+                <p className="font-semibold text-amber-900 text-[11px]">
                   Các bước cài đặt trên Google Chrome (Android):
                 </p>
                 <div className="flex items-start gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px]">
+                  <div className="w-5 h-5 rounded-full bg-amber-200 text-amber-900 font-bold flex items-center justify-center shrink-0 text-[10px]">
                     1
                   </div>
                   <div>
@@ -218,7 +218,7 @@ export default function InstallPrompt({ forceShowModal = false, onCloseModal }) 
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px]">
+                  <div className="w-5 h-5 rounded-full bg-amber-200 text-amber-900 font-bold flex items-center justify-center shrink-0 text-[10px]">
                     2
                   </div>
                   <div>
@@ -227,7 +227,7 @@ export default function InstallPrompt({ forceShowModal = false, onCloseModal }) 
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px]">
+                  <div className="w-5 h-5 rounded-full bg-amber-200 text-amber-900 font-bold flex items-center justify-center shrink-0 text-[10px]">
                     3
                   </div>
                   <div>

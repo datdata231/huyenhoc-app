@@ -12,15 +12,15 @@ export default function DisclaimerFooter({ system = 'chung' }) {
   }
 
   return (
-    <div className="mt-8 pt-4 pb-2 border-t border-slate-800 text-center">
-      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-slate-400 text-[11px] mb-2">
-        <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+    <div className="mt-8 pt-4 pb-2 border-t border-amber-900/10 text-center">
+      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF7F0] border border-amber-900/15 text-stone-600 text-[11px] mb-2 font-medium">
+        <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
         <span>Miễn trừ trách nhiệm chuẩn mực</span>
       </div>
-      <p className="text-[11px] text-slate-400 leading-relaxed max-w-xl mx-auto px-4 italic">
+      <p className="text-[11px] text-stone-600 leading-relaxed max-w-xl mx-auto px-4 italic">
         {text}
       </p>
-      <div className="text-[10px] text-slate-500 mt-2">
+      <div className="text-[10px] text-stone-500 mt-2">
         © 2026 Huyền Học Ba Hệ Thống • Single Source of Truth
       </div>
     </div>

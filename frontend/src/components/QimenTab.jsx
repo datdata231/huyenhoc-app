@@ -136,25 +136,25 @@ export default function QimenTab({ activeProfile }) {
   return (
     <div className="space-y-5 pb-8">
       {/* Intro Card */}
-      <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-4 shadow-sm">
-        <div className="flex items-center gap-2.5 text-emerald-400 font-semibold text-sm mb-1">
-          <Compass className="w-4 h-4" />
+      <div className="oriental-card rounded-2xl p-4 shadow-sm">
+        <div className="flex items-center gap-2.5 text-emerald-800 font-bold text-sm mb-1">
+          <Compass className="w-4 h-4 text-emerald-700" />
           <span>Kỳ Môn Hôm Nay (Thời Gia Chuyển Bàn)</span>
         </div>
-        <p className="text-xs text-slate-400 leading-relaxed">
+        <p className="text-xs text-stone-600 leading-relaxed">
           Xem sự việc cấp bách, trạch cát giờ lành xuất hành, đàm phán, chọn phương vị cát lợi theo quy chuẩn cổ điển Mainline-CN-V1.
         </p>
       </div>
 
       {/* Structured Interview Form */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-3.5 shadow-sm">
-        <h3 className="text-xs font-semibold text-amber-400 uppercase tracking-wider">
+      <div className="oriental-card rounded-2xl p-4 space-y-3.5 shadow-sm text-stone-800">
+        <h3 className="text-xs font-bold text-amber-900 uppercase tracking-wider">
           1. Thông tin việc cần xem
         </h3>
 
         {/* Question Type */}
         <div>
-          <label className="block text-xs text-slate-300 font-medium mb-1">
+          <label className="block text-xs text-stone-700 font-medium mb-1">
             Việc muốn xem là gì? *
           </label>
           <div className="grid grid-cols-3 gap-2 text-xs">
@@ -165,8 +165,8 @@ export default function QimenTab({ activeProfile }) {
                 onClick={() => setQuestionType(t)}
                 className={`py-2 px-2.5 rounded-xl border text-center font-medium transition ${
                   questionType === t
-                    ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
-                    : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                    ? 'bg-amber-100 border-amber-600 text-amber-950 font-bold shadow-sm'
+                    : 'bg-[#FAF7F0] border-stone-300 text-stone-700 hover:border-amber-700/50'
                 }`}
               >
                 {t}
@@ -179,35 +179,35 @@ export default function QimenTab({ activeProfile }) {
               value={customType}
               onChange={(e) => setCustomType(e.target.value)}
               placeholder="Nhập việc cụ thể (ví dụ: đòi nợ, mua nhà...)"
-              className="mt-2 w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100"
+              className="mt-2 w-full bg-[#FAF7F0] border border-stone-300 rounded-xl px-3 py-2 text-xs text-stone-800 focus:outline-none focus:border-amber-600"
             />
           )}
         </div>
 
         {/* If Love, prompt genders */}
         {questionType === 'Tình cảm' && (
-          <div className="p-3 bg-rose-950/20 border border-rose-900/40 rounded-xl space-y-2">
-            <span className="text-xs text-rose-300 font-medium block">
+          <div className="p-3 bg-rose-50 border border-rose-300 rounded-xl space-y-2 text-stone-800">
+            <span className="text-xs text-rose-900 font-bold block">
               Xác định giới tính 2 bên:
             </span>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div>
-                <label className="text-[11px] text-slate-400 block mb-1">Giới tính của bạn:</label>
+                <label className="text-[11px] text-stone-600 block mb-1">Giới tính của bạn:</label>
                 <select
                   value={userGender}
                   onChange={(e) => setUserGender(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-xs text-slate-200"
+                  className="w-full bg-[#FAF7F0] border border-stone-300 rounded-lg p-1.5 text-xs text-stone-800"
                 >
                   <option value="男">Nam ♂</option>
                   <option value="女">Nữ ♀</option>
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-slate-400 block mb-1">Giới tính đối phương:</label>
+                <label className="text-[11px] text-stone-600 block mb-1">Giới tính đối phương:</label>
                 <select
                   value={targetGender}
                   onChange={(e) => setTargetGender(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-xs text-slate-200"
+                  className="w-full bg-[#FAF7F0] border border-stone-300 rounded-lg p-1.5 text-xs text-stone-800"
                 >
                   <option value="女">Nữ ♀</option>
                   <option value="男">Nam ♂</option>
@@ -219,13 +219,13 @@ export default function QimenTab({ activeProfile }) {
 
         {/* Question Goal */}
         <div>
-          <label className="block text-xs text-slate-300 font-medium mb-1">
+          <label className="block text-xs text-stone-700 font-medium mb-1">
             Mục tiêu phán đoán cụ thể: *
           </label>
           <select
             value={questionGoal}
             onChange={(e) => setQuestionGoal(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-amber-400"
+            className="w-full bg-[#FAF7F0] border border-stone-300 rounded-xl px-3 py-2 text-xs text-stone-800 focus:outline-none focus:border-amber-600"
           >
             <option value="Có thành công / thuận lợi hay không">Có thành công / thuận lợi hay không</option>
             <option value="Nên hành động vào thời điểm nào cát lợi">Nên hành động vào thời điểm nào cát lợi</option>
@@ -239,7 +239,7 @@ export default function QimenTab({ activeProfile }) {
               value={customGoal}
               onChange={(e) => setCustomGoal(e.target.value)}
               placeholder="Nhập mục tiêu cụ thể..."
-              className="mt-2 w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100"
+              className="mt-2 w-full bg-[#FAF7F0] border border-stone-300 rounded-xl px-3 py-2 text-xs text-stone-800 focus:outline-none focus:border-amber-600"
             />
           )}
         </div>
@@ -247,13 +247,13 @@ export default function QimenTab({ activeProfile }) {
         {/* Time input */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="text-xs text-slate-300 font-medium">Thời điểm khởi bàn *</label>
+            <label className="text-xs text-stone-700 font-medium">Thời điểm khởi bàn *</label>
             <div className="flex items-center gap-1 text-[11px]">
               <button
                 type="button"
                 onClick={() => setTimeMode('now')}
                 className={`px-2 py-0.5 rounded-md ${
-                  timeMode === 'now' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-slate-200'
+                  timeMode === 'now' ? 'bg-emerald-700 text-white font-bold' : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
                 Ngay bây giờ
@@ -262,7 +262,7 @@ export default function QimenTab({ activeProfile }) {
                 type="button"
                 onClick={() => setTimeMode('custom')}
                 className={`px-2 py-0.5 rounded-md ${
-                  timeMode === 'custom' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-slate-200'
+                  timeMode === 'custom' ? 'bg-amber-600 text-white font-bold' : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
                 Chọn giờ
@@ -276,11 +276,11 @@ export default function QimenTab({ activeProfile }) {
               value={customTime}
               onChange={(e) => setCustomTime(e.target.value)}
               placeholder="YYYY-MM-DD HH:MM"
-              className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-slate-100"
+              className="w-full bg-[#FAF7F0] border border-stone-300 rounded-xl px-3 py-2 text-xs font-mono text-stone-800"
             />
           ) : (
-            <div className="p-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-400 flex items-center gap-2">
-              <Clock className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="p-2 rounded-xl bg-[#FAF7F0] border border-stone-200 text-xs text-stone-600 flex items-center gap-2">
+              <Clock className="w-3.5 h-3.5 text-emerald-700" />
               <span>Khởi bàn ngay tại thời điểm tâm niệm phát khởi</span>
             </div>
           )}
@@ -290,24 +290,24 @@ export default function QimenTab({ activeProfile }) {
         <button
           onClick={handleCalculate}
           disabled={loading}
-          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 disabled:opacity-50 transition"
+          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-amber-900/20 disabled:opacity-50 transition"
         >
           {loading ? (
             <>
-              <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
               <span>Đang tính toán bàn Kỳ Môn...</span>
             </>
           ) : (
             <>
-              <Play className="w-4 h-4 fill-slate-950" />
+              <Play className="w-4 h-4 fill-white" />
               <span>Khởi Bàn Kỳ Môn Ngay</span>
             </>
           )}
         </button>
 
         {error && (
-          <div className="p-3 bg-rose-950/40 border border-rose-800 rounded-xl text-xs text-rose-300 flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 shrink-0 text-rose-400" />
+          <div className="p-3 bg-rose-50 border border-rose-300 rounded-xl text-xs text-rose-800 flex items-center gap-2">
+            <ShieldAlert className="w-4 h-4 shrink-0 text-rose-600" />
             <span>{error}</span>
           </div>
         )}
@@ -323,58 +323,58 @@ export default function QimenTab({ activeProfile }) {
           />
 
           {/* Quick Stats Pill Header in Vietnamese */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-            <div className="flex items-center justify-between mb-3 border-b border-slate-800 pb-2">
-              <span className="text-xs font-bold text-slate-200">
+          <div className="bg-[#FFFEFC] border border-amber-900/15 rounded-2xl p-4 shadow-sm text-stone-800">
+            <div className="flex items-center justify-between mb-3 border-b border-stone-200 pb-2">
+              <span className="text-xs font-bold text-stone-800">
                 Bàn Cờ: {translateDun(calcResult.chart?.dun_type)} • {translateOriginYuan(calcResult.chart?.yuan)} (Cục {calcResult.chart?.ju_number})
               </span>
-              <span className="text-[11px] text-amber-400 font-mono">
+              <span className="text-[11px] text-amber-800 font-mono font-bold">
                 {calcResult.calendar?.solar?.ymd_hms}
               </span>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-              <div className="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
-                <span className="text-[10px] text-slate-400 block">Tứ Trụ Can Chi</span>
-                <span className="font-semibold text-slate-200 text-[11px]">
+              <div className="p-2 rounded-xl bg-[#FAF7F0] border border-stone-200">
+                <span className="text-[10px] text-stone-500 block">Tứ Trụ Can Chi</span>
+                <span className="font-semibold text-stone-800 text-[11px]">
                   {formatGanzhiVn(`${calcResult.ganzhi?.year} ${calcResult.ganzhi?.month} ${calcResult.ganzhi?.day} ${calcResult.ganzhi?.time}`)}
                 </span>
               </div>
-              <div className="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
-                <span className="text-[10px] text-slate-400 block">Tuần Thủ (Ẩn Can)</span>
-                <span className="font-semibold text-amber-300">
+              <div className="p-2 rounded-xl bg-[#FAF7F0] border border-stone-200">
+                <span className="text-[10px] text-stone-500 block">Tuần Thủ (Ẩn Can)</span>
+                <span className="font-semibold text-amber-900">
                   {STEM_MAP[calcResult.chart?.xunshou?.[0]]?.vn || ''} {BRANCH_MAP[calcResult.chart?.xunshou?.[1]]?.vn || ''} ({STEM_MAP[calcResult.chart?.hidden_yi]?.vn || calcResult.chart?.hidden_yi})
                 </span>
               </div>
-              <div className="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
-                <span className="text-[10px] text-slate-400 block">Trực Phù (Sao)</span>
-                <span className="font-semibold text-sky-300">
+              <div className="p-2 rounded-xl bg-[#FAF7F0] border border-stone-200">
+                <span className="text-[10px] text-stone-500 block">Trực Phù (Sao)</span>
+                <span className="font-semibold text-sky-900">
                   {translateStarVn(calcResult.chart?.zhifu?.star)} (Cung {calcResult.chart?.zhifu?.palace})
                 </span>
               </div>
-              <div className="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
-                <span className="text-[10px] text-slate-400 block">Trực Sử (Cửa)</span>
-                <span className="font-semibold text-emerald-300">
+              <div className="p-2 rounded-xl bg-[#FAF7F0] border border-stone-200">
+                <span className="text-[10px] text-stone-500 block">Trực Sử (Cửa)</span>
+                <span className="font-semibold text-emerald-900">
                   {translateDoorVn(calcResult.chart?.zhishi?.door)} (Cung {calcResult.chart?.zhishi?.palace})
                 </span>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 mt-2.5 text-[11px] text-slate-400">
-              <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+            <div className="flex flex-wrap items-center gap-2 mt-2.5 text-[11px] text-stone-600">
+              <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-700">
                 Tuần Không: {calcResult.chart?.kongwang?.map((b) => BRANCH_MAP[b]?.vn || b).join(', ')} (Cung {calcResult.chart?.kongwang_palaces?.join(', ')})
               </span>
-              <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+              <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-700">
                 Dịch Mã: {BRANCH_MAP[calcResult.chart?.hour_yima?.branch]?.vn || calcResult.chart?.hour_yima?.branch} (Cung {calcResult.chart?.hour_yima?.palace})
               </span>
             </div>
           </div>
 
           {/* 3x3 Nine Palaces Grid */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 shadow-md">
+          <div className="bg-[#FFFEFC] border border-amber-900/15 rounded-2xl p-3 shadow-md">
             <div className="flex items-center justify-between mb-2 px-1">
-              <span className="text-xs font-semibold text-slate-300">Đồ Hình Cửu Cung (Lạc Thư)</span>
-              <span className="text-[10px] text-slate-500">Nam trên — Bắc dưới</span>
+              <span className="text-xs font-bold text-stone-800">Đồ Hình Cửu Cung (Lạc Thư)</span>
+              <span className="text-[10px] text-stone-500">Nam trên — Bắc dưới</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2">
@@ -404,19 +404,19 @@ export default function QimenTab({ activeProfile }) {
                     key={palaceNum}
                     className={`p-2 rounded-xl border relative flex flex-col justify-between min-h-[120px] transition ${
                       isCenter
-                        ? 'bg-slate-950/40 border-slate-800/80 text-slate-500'
+                        ? 'bg-[#F5F2EB] border-stone-300 text-stone-600'
                         : isKongwang
-                        ? 'bg-purple-950/20 border-purple-800/60'
+                        ? 'bg-purple-50/90 border-purple-300 shadow-xs'
                         : isZhifu
-                        ? 'bg-sky-950/30 border-sky-600/60'
+                        ? 'bg-sky-50/90 border-sky-400 shadow-xs'
                         : isZhishi
-                        ? 'bg-emerald-950/30 border-emerald-600/60'
-                        : 'bg-slate-950/80 border-slate-800'
+                        ? 'bg-emerald-50/90 border-emerald-400 shadow-xs'
+                        : 'bg-[#FAF7F0] border-stone-300/80 shadow-xs'
                     }`}
                   >
                     {/* Corner badge: Palace Name & Direction */}
-                    <div className="flex items-center justify-between text-[10px] text-slate-400">
-                      <span className="font-semibold text-slate-300">
+                    <div className="flex items-center justify-between text-[10px] text-stone-600">
+                      <span className="font-bold text-stone-800">
                         {palaceVnName}
                       </span>
                       <span>{directionVn}</span>
@@ -424,17 +424,17 @@ export default function QimenTab({ activeProfile }) {
 
                     {isCenter ? (
                       <div className="text-center my-auto py-2">
-                        <span className="text-xs font-semibold text-slate-400 block">Trung Cung</span>
-                        <span className="text-[10px] text-slate-500">Ký Khôn Nhị Cung (2)</span>
+                        <span className="text-xs font-semibold text-stone-600 block">Trung Cung</span>
+                        <span className="text-[10px] text-stone-500">Ký Khôn Nhị Cung (2)</span>
                       </div>
                     ) : (
                       <div className="my-1 space-y-1">
                         {/* God & Star */}
                         <div className="flex items-center justify-between text-[11px]">
-                          <span className="text-purple-300 font-medium">
+                          <span className="text-purple-900 font-semibold">
                             {godVn || '—'}
                           </span>
-                          <span className="text-amber-300 font-medium text-[10px]">
+                          <span className="text-amber-900 font-semibold text-[10px]">
                             {starVn || '—'}
                             {hostedStarVn ? `+${hostedStarVn}` : ''}
                           </span>
@@ -446,25 +446,25 @@ export default function QimenTab({ activeProfile }) {
                             <span
                               className={`text-xs font-bold px-1.5 py-0.5 rounded ${
                                 doorInfo?.nature?.includes('Cát')
-                                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                                  ? 'bg-emerald-100 text-emerald-900 border border-emerald-400'
                                   : doorInfo?.nature?.includes('Hung')
-                                  ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                                  : 'bg-slate-800 text-slate-300'
+                                  ? 'bg-rose-100 text-rose-900 border border-rose-400'
+                                  : 'bg-stone-100 text-stone-800 border border-stone-300'
                               }`}
                             >
                               {doorVn}
                             </span>
                           ) : (
-                            <span className="text-xs text-slate-600">—</span>
+                            <span className="text-xs text-stone-400">—</span>
                           )}
                         </div>
 
                         {/* Heavenly Stem & Earthly Stem in Vietnamese */}
-                        <div className="flex items-center justify-between text-[11px] pt-1 border-t border-slate-800/80">
-                          <span className="text-sky-400 font-semibold" title="Thiên Bàn Can">
+                        <div className="flex items-center justify-between text-[11px] pt-1 border-t border-stone-200">
+                          <span className="text-sky-900 font-bold" title="Thiên Bàn Can">
                             {formatStemDisplay(p.sky_stems?.join('+') || p.sky_stem)}
                           </span>
-                          <span className="text-amber-400 font-semibold" title="Địa Bàn Can">
+                          <span className="text-amber-950 font-bold" title="Địa Bàn Can">
                             {formatStemDisplay(p.earth_stem)}
                           </span>
                         </div>
@@ -473,9 +473,9 @@ export default function QimenTab({ activeProfile }) {
 
                     {/* Bottom Status Tags */}
                     <div className="flex items-center justify-between text-[9px] pt-0.5">
-                      {isZhifu && <span className="text-sky-400 font-bold">Trực Phù</span>}
-                      {isZhishi && <span className="text-emerald-400 font-bold">Trực Sử</span>}
-                      {isKongwang && <span className="text-purple-400 font-bold">Không Vong</span>}
+                      {isZhifu && <span className="text-sky-800 font-bold">Trực Phù</span>}
+                      {isZhishi && <span className="text-emerald-800 font-bold">Trực Sử</span>}
+                      {isKongwang && <span className="text-purple-800 font-bold">Không Vong</span>}
                     </div>
                   </div>
                 );
@@ -484,24 +484,24 @@ export default function QimenTab({ activeProfile }) {
           </div>
 
           {/* AI Interpretation Section */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
-            <div className="flex items-center justify-between mb-3 border-b border-slate-800 pb-2">
-              <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
-                <Sparkles className="w-4 h-4" />
+          <div className="bg-[#FFFEFC] border border-amber-900/15 rounded-2xl p-4 shadow-sm">
+            <div className="flex items-center justify-between mb-3 border-b border-amber-900/15 pb-2">
+              <div className="flex items-center gap-2 text-amber-900 font-bold text-sm">
+                <Sparkles className="w-4 h-4 text-amber-700" />
                 <span>Luận Giải Kỳ Môn (7 Mục Chuẩn Tiếng Việt)</span>
               </div>
               <button
                 onClick={handleSave}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#FAF7F0] hover:bg-[#F3EFE6] border border-stone-300 text-xs text-stone-700 transition"
               >
                 {savedSuccess ? (
                   <>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Đã lưu</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="text-emerald-700 font-medium">Đã lưu</span>
                   </>
                 ) : (
                   <>
-                    <BookmarkPlus className="w-3.5 h-3.5 text-amber-400" />
+                    <BookmarkPlus className="w-3.5 h-3.5 text-amber-700" />
                     <span>Lưu lá số</span>
                   </>
                 )}
@@ -510,14 +510,14 @@ export default function QimenTab({ activeProfile }) {
 
             {interpreting ? (
               <div className="py-8 text-center space-y-2">
-                <div className="w-6 h-6 border-2 border-amber-400 border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs text-amber-300 font-medium">Bậc Thầy đang tham chiếu Dụng Thần & soạn bài giải bằng tiếng Việt...</p>
-                <p className="text-[11px] text-slate-400">Đang chuẩn bị cả Lời Khuyên Hành Động Thực Tế và Hồ Sơ Kỹ Thuật...</p>
+                <div className="w-6 h-6 border-2 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto" />
+                <p className="text-xs text-amber-900 font-semibold">Bậc Thầy đang tham chiếu Dụng Thần & soạn bài giải bằng tiếng Việt...</p>
+                <p className="text-[11px] text-stone-600">Đang chuẩn bị cả Lời Khuyên Hành Động Thực Tế và Hồ Sơ Kỹ Thuật...</p>
               </div>
             ) : interpretation ? (
               <InterpretationView interpretation={interpretation} title="Luận Giải Kỳ Môn" />
             ) : (
-              <div className="text-center py-6 text-slate-500 text-xs">
+              <div className="text-center py-6 text-stone-400 text-xs">
                 Chưa có bài luận giải. Bấm nút phía trên để bắt đầu khởi bàn.
               </div>
             )}

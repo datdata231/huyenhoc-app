@@ -134,7 +134,7 @@ export default function App() {
   const activeThemeObj = ELEMENT_THEMES[currentTheme] || ELEMENT_THEMES['Mộc'];
 
   return (
-    <div className={`min-h-screen bg-gradient-to-b ${activeThemeObj.bgGradient} bg-cloud-pattern text-slate-100 flex flex-col selection:bg-amber-500/30 selection:text-amber-200 transition-colors duration-500`}>
+    <div className={`min-h-screen bg-gradient-to-b ${activeThemeObj.bgGradient} bg-cloud-pattern text-slate-800 flex flex-col selection:bg-amber-200 selection:text-amber-900 transition-colors duration-500`}>
       {/* Top Navbar */}
       <Navbar
         activeProfile={activeProfile}
@@ -158,19 +158,19 @@ export default function App() {
         {activeTab === 'bazi' && <BaziTab activeProfile={activeProfile} />}
       </main>
 
-      {/* Mobile-first Bottom Navigation Bar phong cách Đông Phương */}
-      <nav className="fixed bottom-0 inset-x-0 z-40 bg-slate-950/95 backdrop-blur-lg border-t border-amber-500/20 px-2 py-1.5">
-        <div className="max-w-md mx-auto grid grid-cols-3 gap-1">
+      {/* Mobile-first Bottom Navigation Bar phong cách Đông Phương Sáng */}
+      <nav className="fixed bottom-0 inset-x-0 z-40 bg-[#FFFDF9]/95 backdrop-blur-md border-t border-amber-900/15 shadow-[0_-4px_20px_rgba(40,25,15,0.08)] px-2 py-1.5">
+        <div className="max-w-md mx-auto grid grid-cols-3 gap-1.5">
           {/* Tab 1: Qimen */}
           <button
             onClick={() => setActiveTab('qimen')}
             className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition ${
               activeTab === 'qimen'
-                ? 'text-emerald-400 bg-emerald-950/40 font-bold border border-emerald-500/30'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'text-emerald-900 bg-emerald-500/15 font-bold border border-emerald-600/30 shadow-sm'
+                : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100/50'
             }`}
           >
-            <Compass className={`w-5 h-5 mb-0.5 ${activeTab === 'qimen' ? 'text-emerald-400' : ''}`} />
+            <Compass className={`w-5 h-5 mb-0.5 ${activeTab === 'qimen' ? 'text-emerald-700' : ''}`} />
             <span className="text-[11px] tracking-tight">Kỳ Môn Hôm Nay</span>
           </button>
 
@@ -179,11 +179,11 @@ export default function App() {
             onClick={() => setActiveTab('ziwei')}
             className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition ${
               activeTab === 'ziwei'
-                ? 'text-purple-400 bg-purple-950/40 font-bold border border-purple-500/30'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'text-purple-900 bg-purple-500/15 font-bold border border-purple-600/30 shadow-sm'
+                : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100/50'
             }`}
           >
-            <Layers className={`w-5 h-5 mb-0.5 ${activeTab === 'ziwei' ? 'text-purple-400' : ''}`} />
+            <Layers className={`w-5 h-5 mb-0.5 ${activeTab === 'ziwei' ? 'text-purple-700' : ''}`} />
             <span className="text-[11px] tracking-tight">Tử Vi Đẩu Số</span>
           </button>
 
@@ -192,11 +192,11 @@ export default function App() {
             onClick={() => setActiveTab('bazi')}
             className={`flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition ${
               activeTab === 'bazi'
-                ? 'text-amber-400 bg-amber-950/40 font-bold border border-amber-500/30'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'text-amber-950 bg-amber-500/15 font-bold border border-amber-600/30 shadow-sm'
+                : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100/50'
             }`}
           >
-            <Flame className={`w-5 h-5 mb-0.5 ${activeTab === 'bazi' ? 'text-amber-400' : ''}`} />
+            <Flame className={`w-5 h-5 mb-0.5 ${activeTab === 'bazi' ? 'text-amber-700' : ''}`} />
             <span className="text-[11px] tracking-tight">Bát Tự (Tứ Trụ)</span>
           </button>
         </div>

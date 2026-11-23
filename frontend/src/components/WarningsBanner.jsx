@@ -12,12 +12,12 @@ export default function WarningsBanner({ warnings = [], patterns = [] }) {
     <div className="mb-4 space-y-2">
       {/* Warnings Banner in Vietnamese */}
       {hasWarnings && (
-        <div className="bg-amber-950/40 border border-amber-500/40 rounded-xl p-3.5 shadow-sm backdrop-blur-sm">
-          <div className="flex items-center gap-2 text-amber-400 font-semibold text-sm mb-1.5">
-            <AlertTriangle className="w-4 h-4 shrink-0" />
-            <span>Khẩu kính & Cảnh báo Kỹ thuật</span>
+        <div className="bg-[#FEFCE8] border border-amber-400/80 rounded-xl p-3.5 shadow-xs">
+          <div className="flex items-center gap-2 text-amber-900 font-bold text-sm mb-1.5">
+            <AlertTriangle className="w-4 h-4 shrink-0 text-amber-700" />
+            <span>Khẩu quyết & Cảnh báo Kỹ thuật</span>
           </div>
-          <ul className="text-xs text-amber-200/90 space-y-1.5 pl-6 list-disc">
+          <ul className="text-xs text-amber-950 space-y-1.5 pl-6 list-disc">
             {warnings.map((w, idx) => (
               <li key={idx} className="leading-relaxed">
                 {translateWarning(w)}
@@ -29,9 +29,9 @@ export default function WarningsBanner({ warnings = [], patterns = [] }) {
 
       {/* Detected Patterns Banner in Vietnamese */}
       {hasPatterns && (
-        <div className="bg-slate-900/90 border border-slate-700/70 rounded-xl p-3 shadow-sm">
-          <div className="flex items-center gap-2 text-sky-400 font-semibold text-xs mb-2">
-            <Info className="w-3.5 h-3.5 shrink-0" />
+        <div className="bg-[#FFFEFC] border border-stone-200 rounded-xl p-3 shadow-xs">
+          <div className="flex items-center gap-2 text-sky-900 font-bold text-xs mb-2">
+            <Info className="w-3.5 h-3.5 shrink-0 text-sky-700" />
             <span>Cách Cục / Biến Động Nhận Diện Được (Kỳ Môn)</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -46,10 +46,10 @@ export default function WarningsBanner({ warnings = [], patterns = [] }) {
                   key={idx}
                   className={`text-[11px] px-2.5 py-1 rounded-lg border leading-tight ${
                     isBad
-                      ? 'bg-rose-950/60 text-rose-200 border-rose-700/60'
+                      ? 'bg-rose-50 text-rose-900 border-rose-300'
                       : isGood
-                      ? 'bg-emerald-950/60 text-emerald-200 border-emerald-700/60'
-                      : 'bg-slate-800 text-slate-200 border-slate-700'
+                      ? 'bg-emerald-50 text-emerald-900 border-emerald-300'
+                      : 'bg-stone-100 text-stone-800 border-stone-300'
                   }`}
                   title={p.detail || ''}
                 >
