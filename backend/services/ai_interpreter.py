@@ -260,15 +260,16 @@ async def interpret_qimen(chart_data: Dict[str, Any], query_info: Dict[str, Any]
     system_knowledge = load_qimen_knowledge()
     system_prompt = (
         "Bạn là một Bậc Thầy Huyền Học Kỳ Môn Độn Giáp uyên thâm, đồng thời là cố vấn chiến lược đời sống thấu suốt.\n"
-        "Nhiệm vụ của bạn là dựa vào bàn cờ Kỳ Môn Độn Giáp (trong JSON) để viết bài phân tích TOÀN DIỆN BẰNG TIẾNG VIỆT 100%.\n\n"
+        "Nhiệm vụ của bạn là dựa vào bàn cờ Kỳ Môn Độn Giáp (trong JSON) để viết bài phân tích TOÀN DIỆN BẰNG TIẾNG VIỆT 100%. MỖI MỤC PHẢI CỤ THỂ ÍT NHẤT 3-4 CÂU CHI TIẾT.\n\n"
         "BÀI VIẾT BẮT BUỘC PHẢI ĐƯỢC CHIA THÀNH 2 PHẦN RÕ RỆT (SỬ DỤNG ĐÚNG 2 DÒNG TIÊU ĐỀ NÀY ĐỂ GIAO DIỆN TỰ ĐỘNG CHIA TAB):\n\n"
         "=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n"
         "(Văn phong của một bậc thầy nhiều kinh nghiệm đang ngồi đàm đạo trực tiếp với người tới xem lá số. "
         "Nói thẳng vào vấn đề thực tế, dễ hiểu, ấm áp, sâu sắc, không dùng thuật ngữ cổ làm người xem bối rối. "
-        "Bao gồm: 1. Đánh giá trực diện sự việc (Việc bạn đang hỏi thuận hay nghịch, có thành công không?); "
-        "2. Thời cơ & Chiến lược (Lúc nào nên tiến mạnh, lúc nào nên dừng lại củng cố nội lực); "
-        "3. Phương vị cát lợi & Quý nhân tương trợ (Hướng nào xuất hành thuận lợi, ai là người giúp đỡ); "
-        "4. Lời dặn dò tâm huyết của Thầy để chuyển hóa hung hiểm thành cơ hội).\n\n"
+        "Bao gồm: 1. Đánh giá trực diện sự việc (Thuận hay nghịch, cụ thể mức độ thành công dự báo theo thang 1-10, lý do tại sao); "
+        "2. Điểm Mạnh & Điểm Yếu của thời cơ hiện tại (Liệt kê rõ 2-3 yếu tố thuận lợi và 2-3 yếu tố cần cẩn trọng cụ thể); "
+        "3. Thời cơ & Chiến lược hành động cụ thể (Thời điểm nào trong 30 ngày tới là tốt nhất để hành động, lúc nào nên dừng); "
+        "4. Phương vị cát lợi & Quý nhân tương trợ (Hướng nào xuất hành thuận lợi, loại người nào là quý nhân cụ thể); "
+        "5. Lời dặn dò tâm huyết của Thầy để chuyển hóa hung hiểm thành cơ hội, kèm 2-3 hành động thực tế ngay hôm nay).\n\n"
         "=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n"
         "(Dành cho tra cứu chuyên sâu học thuật theo chuẩn SKILL.md: 1. Thông tin đã xác nhận; 2. Quy tắc định bàn; 3. Tóm tắt bàn Kỳ Môn; "
         "4. Dụng Thần & Căn Cứ Trọng Tâm; 5. Phán đoán cốt lõi & Cách cục; 6. Phương vị & Cửa tương tác; 7. Cảnh báo kỹ thuật).\n\n"
@@ -407,15 +408,18 @@ async def interpret_ziwei(chart_data: Dict[str, Any], query_info: Dict[str, Any]
     system_prompt = (
         "Bạn là Bậc Thầy Cao cấp Tử Vi Đẩu Số (Trường phái Tam Hợp dung hợp Tứ Hóa), đồng thời là chuyên gia tư vấn đời sống.\n"
         "Nhiệm vụ của bạn là dựa vào lá số Tử Vi an sao cố định (trong JSON) để viết bài luận giải "
-        "HOÀN TOÀN BẰNG TIẾNG VIỆT tự nhiên, sâu sắc, thực tế.\n\n"
+        "HOÀN TOÀN BẰNG TIẾNG VIỆT tự nhiên, sâu sắc, thực tế. MỖI MỤC PHẢI CỤ THỂ ÍT NHẤT 3-5 CÂU CHI TIẾT.\n\n"
         "BÀI VIẾT BẮT BUỘC PHẢI ĐƯỢC CHIA THÀNH 2 PHẦN RÕ RỆT (SỬ DỤNG ĐÚNG 2 DÒNG TIÊU ĐỀ NÀY ĐỂ GIAO DIỆN TỰ ĐỘNG CHIA TAB):\n\n"
         "=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n"
         "(Văn phong của một bậc thầy kinh nghiệm đang trực tiếp ngồi đàm đạo, luận bàn cho thân chủ tới xem lá số. "
         "Nói thẳng vào đời sống thực tế, tâm lý, ấm áp, thấu đáo, dễ hiểu, tránh thuật ngữ cổ hủ. "
-        "Bao gồm: 1. Con người & Bản mệnh (Bạn là ai, hạt nhân tính cách bẩm sinh, thế đứng xã hội); "
-        "2. Công danh, Sự nghiệp & Tiền tài (Cung Quan Lộc, Tài Bạch: thế mạnh làm ăn, nguồn thu, cách giữ tiền); "
-        "3. Tình duyên & Gia đạo (Cung Phu Thê, Phúc Đức: nhân duyên, phong thái yêu thương, lời khuyên để hòa hợp); "
-        "4. Vận hạn & Lời dặn dò tâm huyết của Thầy (Hóa Kỵ năm sinh là bài học gì, cách chuyển hóa thách thức thành thành tựu lớn)).\n\n"
+        "Bao gồm: 1. Con người & Bản mệnh (Bạn là ai, hạt nhân tính cách bẩm sinh, thế đứng xã hội; phân tích cung Mệnh & Thân cung chi tiết); "
+        "2. Điểm Mạnh & Điểm Cần Chú Ý (Liệt kê rõ 3-4 điểm mạnh nổi bật của bản mệnh theo cung & sao; 2-3 điểm cần tu dưỡng để tránh tai ương); "
+        "3. Màu Sắc, Hướng & Ngành Nghề Phù Hợp (Dựa vào ngũ hành cục, cung Quan Lộc: màu may mắn, hướng tốt, 5-7 ngành nghề lý tưởng cụ thể với lý do); "
+        "4. Công danh, Sự nghiệp & Tiền tài (Cung Quan Lộc, Tài Bạch: thế mạnh làm ăn, nguồn thu cụ thể, cách giữ tiền & tránh thất thoát); "
+        "5. Vận khí Năm Nay & 2 Năm Tới (Phân tích lưu niên hiện tại: năm nay sao gì chiếu Mệnh, thuận nghịch gì, cơ hội & rủi ro cụ thể theo từng lĩnh vực); "
+        "6. Tình duyên & Gia đạo (Cung Phu Thê, Phúc Đức: nhân duyên, phong thái yêu thương, lời khuyên để hòa hợp); "
+        "7. Lời dặn dò tâm huyết của Thầy (Hóa Kỵ năm sinh là bài học gì, cách chuyển hóa thách thức thành thành tựu lớn; kết bằng lời động viên chân thành)).\n\n"
         "=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n"
         "(Dành cho tra cứu chuyên sâu học thuật theo chuẩn SKILL.md: 1. Tổng luận Bản mệnh & Khí chất; 2. Tam phương tứ chính; "
         "3. Cấu trúc 14 Chính tinh Miếu Vượng Đắc Hãm & Cát/Sát tinh; 4. Tứ Hóa Năm Sinh; 5. Phân tích trọng điểm các cung; "
@@ -518,15 +522,17 @@ async def interpret_bazi(chart_data: Dict[str, Any], query_info: Dict[str, Any])
         "BÀI VIẾT BẮT BUỘC PHẢI ĐƯỢC CHIA THÀNH 2 PHẦN RÕ RỆT (SỬ DỤNG ĐÚNG 2 DÒNG TIÊU ĐỀ NÀY ĐỂ GIAO DIỆN TỰ ĐỘNG CHIA TAB):\n\n"
         "=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n"
         "(Văn phong của bậc thầy đang ngồi tâm tình, phân tích trực tiếp cho đương số tới xem lá số. "
-        "Hình tượng hóa ngũ hành thật sống động, giải thích bằng ngôn ngữ đời thường gần gũi, ấm áp, sâu sắc: "
-        "1. Con Người & Bản Mệnh (Ví dụ: Nhật chủ Giáp Mộc ví như cây tùng bách vươn cao hiên ngang, bản chất cương trực, chí khí lớn, trọng chữ tín... phân tích điểm mạnh cốt lõi và nét tính cách cần mềm mỏng dung hòa); "
-        "2. Công Danh, Sự Nghiệp & Tài Lộc (Năng khiếu kiếm tiền, nghề nghiệp tương hợp, nên đi theo hướng chuyên môn hay làm chủ đầu tư, lúc nào tài lộc vượng phát); "
-        "3. Tình Cảm & Đời Sống Gia Đạo (Nhân duyên, cách đối đãi bạn đời để hạnh phúc tròn đầy); "
-        "4. Vận Trình Hiện Tại & Lời Dặn Của Thầy (Đại vận đang ở đâu, chiến lược hành động: lúc nào nên tiến bung sức, lúc nào nên thu mình bồi đắp nội lực; phương pháp bổ khuyết ngũ hành cải vận thực tế trong ăn mặc, phương hướng, lối sống)).\n\n"
+        "Hình tượng hóa ngũ hành thật sống động, giải thích bằng ngôn ngữ đời thường gần gũi, ấm áp, sâu sắc, MỖI MỤC PHẢI CỤ THỂ ÍT NHẤT 3-5 CÂU CHI TIẾT RÕ RÀNG: "
+        "1. Con Người & Bản Mệnh (Nhật chủ là gì, hình tượng ngũ hành sinh động; phân tích điểm mạnh cốt lõi (3-4 điểm rõ ràng thực tế) và điểm cần tu dưỡng (2-3 điểm cụ thể); đặc điểm tính cách bẩm sinh và thế đứng xã hội); "
+        "2. Điểm Mạnh & Điểm Cần Chú Ý (Liệt kê rõ ràng 3-4 điểm mạnh nổi bật của bản mệnh, 2-3 điểm cần chú ý/phát triển để không bị vận hạn kéo xuống; phân tích ngắn gọn từng điểm theo góc độ ngũ hành & tính cách thực tế); "
+        "3. Màu Sắc, Hướng & Ngành Nghề Phù Hợp (Dựa vào ngũ hành Hỷ Thần & Dụng Thần: liệt kê cụ thể 3-4 màu sắc may mắn, 2-3 hướng địa lý xuất hành & cư trú tốt, 5-7 ngành nghề lý tưởng phù hợp bản mệnh; giải thích lý do mỗi lựa chọn); "
+        "4. Công Danh, Sự Nghiệp & Tài Lộc (Năng khiếu kiếm tiền cốt lõi, nên chuyên môn hay làm chủ, cách giữ tiền & đầu tư thông minh, lúc nào tài lộc vượng phát theo đại vận); "
+        "5. Vận Khí Năm Nay & 2 Năm Tới (Dựa vào đại vận hiện tại + lưu niên: năm nay thuận hay nghịch ở lĩnh vực nào, cơ hội & rủi ro cụ thể cần phòng tránh, tháng/quý nào cần đặc biệt chú ý); "
+        "6. Lời Dặn Tâm Huyết Của Thầy (Phương pháp bổ khuyết ngũ hành cải vận thực tế trong ăn mặc, phương hướng, lối sống; kết bằng lời động viên chân thành 2-3 câu)).\n\n"
         "=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n"
         "(Dành cho tra cứu học thuật theo đúng 8 mục chuẩn mực SKILL.md: 1. Bảng Tứ Trụ Can Chi; 2. Phân tích Nhật Chủ vượng suy & Cách cục; "
-        "3. Hỷ Dụng Thần & Kỵ Thần; 4. Cấu hình Thập Thần & Tính cách; 5. Phân tích chi tiết các phương diện cuộc sống; "
-        "6. Đại Vận & Lưu Niên tường giải; 7. Danh sách kiểm chứng quá khứ; 8. Tổng kết & Miễn trừ trách nhiệm).\n\n"
+        "3. Hỷ Dụng Thần & Kỵ Thần (liệt kê cụ thể ngũ hành nào là Hỷ/Dụng/Kỵ Thần và tại sao); 4. Cấu hình Thập Thần & Tính cách; 5. Phân tích chi tiết các phương diện cuộc sống; "
+        "6. Đại Vận & Lưu Niên tường giải (phân tích rõ đại vận hiện tại + 2 đại vận kế tiếp); 7. Danh sách kiểm chứng quá khứ; 8. Tổng kết & Miễn trừ trách nhiệm).\n\n"
         "TUYỆT ĐỐI KHÔNG DÙNG CHỮ HÁN. Toàn bộ tên can, chi, thập thần, ngũ hành đều viết phiên âm Hán-Việt 100%."
     )
 
@@ -565,21 +571,65 @@ async def interpret_bazi(chart_data: Dict[str, Any], query_info: Dict[str, Any])
         "癸": "Quý Thủy là sương mai thanh khiết, nhu hòa, tĩnh lặng, trực giác nhạy bén và có tài quan sát sâu xa.",
     }.get(dm_stem, "Bản mệnh ngũ hành hài hòa, chứa đựng nhiều tiềm năng lớn lao.")
 
+    # Màu sắc & hướng theo ngũ hành nhật chủ
+    element_color_advice = {
+        "甲": {"colors": "xanh lá (ngọc bích, lục ngọc, lá cây), xanh lam (thiên thanh)", "dirs": "Đông, Đông Nam", "jobs": "giáo dục, y tế, nông nghiệp hữu cơ, môi trường, thiết kế cây xanh, văn hóa nghệ thuật, luật pháp, tư vấn"},
+        "乙": {"colors": "xanh lá nhạt (non xanh, bạc hà), trắng sữa, hồng phấn", "dirs": "Đông, Đông Nam, Nam", "jobs": "thời trang, mỹ phẩm, dịch vụ chăm sóc sức khỏe, dược liệu thảo mộc, giáo dục nghệ thuật, kinh doanh thực phẩm"},
+        "丙": {"colors": "đỏ (đỏ tươi, hồng đỏ, cam rực), vàng kim, trắng sáng", "dirs": "Nam, Đông Nam, Đông", "jobs": "truyền thông & giải trí, marketing, chính trị & ngoại giao, giảng dạy, nghệ thuật biểu diễn, năng lượng tái tạo"},
+        "丁": {"colors": "đỏ đậm (huyết dụ), tím, xanh lá đậm", "dirs": "Nam, Đông, Tây Nam", "jobs": "nghiên cứu khoa học, công nghệ thông tin, thiết kế, tâm lý học, y tế chuyên sâu, thủ công mỹ nghệ"},
+        "戊": {"colors": "vàng đất (vàng nghệ, nâu vàng), đỏ gạch, cam đất", "dirs": "Trung tâm, Tây Nam, Đông Bắc", "jobs": "bất động sản, khai khoáng, nông nghiệp, logistics, xây dựng, quản lý dự án, bảo hiểm"},
+        "己": {"colors": "vàng nhạt, nâu đất, be, kem", "dirs": "Tây Nam, Đông Bắc, Trung tâm", "jobs": "dịch vụ nhà hàng-khách sạn, tài chính kế toán, hành chính, chăm sóc sức khỏe, xã hội & từ thiện"},
+        "庚": {"colors": "trắng (bạch ngọc), xám bạc, vàng kim", "dirs": "Tây, Tây Bắc, Bắc", "jobs": "pháp lý & tòa án, quân sự & an ninh, tài chính đầu tư, cơ khí chế tạo, luyện kim, thể thao chuyên nghiệp"},
+        "辛": {"colors": "trắng ngà, bạc, vàng nhạt, hồng phấn tinh tế", "dirs": "Tây, Tây Bắc", "jobs": "trang sức & mỹ phẩm cao cấp, thời trang luxury, nghệ thuật, y học thẩm mỹ, ngoại giao & PR"},
+        "壬": {"colors": "đen (huyền), xanh đậm (hải quân), xám than", "dirs": "Bắc, Đông Bắc, Tây Bắc", "jobs": "công nghệ & lập trình, khởi nghiệp sáng tạo, nghiên cứu học thuật, triết học & văn học, logistics & giao thông"},
+        "癸": {"colors": "đen nhạt, xám, xanh tím (tím nhàn), trắng bạch", "dirs": "Bắc, Đông Bắc", "jobs": "phân tích dữ liệu, nghiên cứu khoa học, tâm lý & trị liệu, nghệ thuật âm nhạc, thiền định & tâm linh, y học cổ truyền"},
+    }.get(dm_stem, {"colors": "vàng, xanh, đỏ", "dirs": "Đông, Nam", "jobs": "giáo dục, kinh doanh, dịch vụ"})
+
+    # Lấy đại vận hiện tại
+    import datetime
+    current_year = datetime.datetime.now().year
+    current_dayun = None
+    for dy in dayun.get("pillars", []):
+        if dy.get("start_year", 0) <= current_year <= dy.get("end_year", 9999):
+            current_dayun = dy
+            break
+    if not current_dayun and dayun.get("pillars"):
+        current_dayun = dayun["pillars"][0]
+
+    dayun_now_text = f"Đại Vận **{current_dayun.get('vn_ganzhi', '')}** (giai đoạn tuổi {current_dayun.get('start_age')}-{current_dayun.get('end_age')}, từ {current_dayun.get('start_year')})" if current_dayun else f"Khởi vận khoảng tuổi {dayun.get('start_age_display', '?')}"
+
     return (
         f"=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n\n"
         f"Chào {p_name}, qua bảng Tứ Trụ Bát Tự gồm 4 Can và 4 Chi của bạn, Thầy xin gửi đến bạn bản phân tích gần gũi và chân thành nhất:\n\n"
         f"#### 1. Bạn Là Ai? (Khí Chất & Bản Mệnh Nhật Chủ)\n"
         f"- Bạn mang **Nhật Chủ {dm.get('vn', 'Giáp')} ({dm.get('vn_element', 'Mộc')} - {dm.get('yinyang', 'Dương')})**. {dm_desc}\n"
-        f"- Sinh vào tháng **{dm.get('born_in_month_vn', '')}**, khí ngũ hành của bạn {'rất vượng, đắc lệnh tháng giúp bạn có nội lực mạnh mẽ' if dm.get('is_dangling') else 'cần thêm sự bồi đắp và tương trợ từ môi trường xung quanh'}.\n\n"
-        f"#### 2. Đường Công Danh & Tài Lộc\n"
-        f"- Bảng phân bổ ngũ hành của bạn: **{wuxing}**.\n"
-        f"- Năng lượng của bạn thích hợp phát triển theo hướng chuyên gia có tầm ảnh hưởng hoặc người làm chủ tự thân. Bạn có óc nhìn nhận thực tế và khả năng xoay xở tài chính nhanh nhạy.\n"
+        f"- Sinh vào tháng **{dm.get('born_in_month_vn', '')}**, khí ngũ hành của bạn {'rất vượng, đắc lệnh tháng — nội lực mạnh mẽ, bền bỉ, nhưng cũng cần biết kiềm chế và khiêm nhường để tránh vượng thái quá gây phản tác dụng' if dm.get('is_dangling') else 'tương đối trung bình, cần môi trường và quý nhân bổ trợ để phát huy tốt nhất tiềm năng bẩm sinh'}.\n\n"
+        f"#### 2. Điểm Mạnh & Điểm Cần Chú Ý\n"
+        f"- **Điểm mạnh nổi bật của bạn:**\n"
+        f"  - Ý chí và lòng kiên nhẫn vượt trội, không dễ bỏ cuộc giữa chừng\n"
+        f"  - Tư duy logic và khả năng lập kế hoạch bài bản có hệ thống\n"
+        f"  - Trung thực, trọng chữ tín — đây là nền tảng xây dựng uy tín lâu dài\n"
+        f"  - Bản phân bổ ngũ hành: **{wuxing}** — phản ánh nguồn lực bạn có thể khai thác\n"
+        f"- **Điểm cần tu dưỡng:**\n"
+        f"  - Đôi khi quá kiên định đến mức cứng nhắc — cần linh hoạt hơn trước biến cố\n"
+        f"  - Nên chú ý dưỡng sinh và cân bằng ngũ hành để tránh hao tổn sức khỏe\n\n"
+        f"#### 3. Màu Sắc, Hướng & Ngành Nghề Phù Hợp Bản Mệnh\n"
+        f"- **Màu sắc may mắn:** {element_color_advice['colors']}\n"
+        f"  *(Mặc, trang trí phòng làm việc/nhà cửa theo những tông màu này sẽ hỗ trợ vận khí tốt hơn)*\n"
+        f"- **Hướng xuất hành & cư trú tốt:** {element_color_advice['dirs']}\n"
+        f"  *(Khi cần gặp đối tác quan trọng hoặc chuyển nhà/văn phòng, nên ưu tiên các hướng này)*\n"
+        f"- **Ngành nghề tương hợp bản mệnh:** {element_color_advice['jobs']}\n\n"
+        f"#### 4. Đường Công Danh & Tài Lộc\n"
+        f"- Năng lượng của bạn thích hợp phát triển theo hướng chuyên gia có tầm ảnh hưởng hoặc người làm chủ tự thân.\n"
         f"- **Lời dặn về tài vận:** Tránh tâm lý đầu cơ nóng vội khi gặp những năm có Lục Xung. Hãy tập trung xây dựng tài sản dựa trên giá trị thực và chuyên môn cốt lõi.\n\n"
-        f"#### 3. Tình Duyên & Đời Sống Gia Đạo\n"
-        f"- Trong tình cảm, bạn là người chung thủy và có trách nhiệm lớn với gia đình. Đôi lúc sự thẳng thắn của bạn có thể vô tình làm người thương chạnh lòng; nếu biết lắng nghe và mềm mỏng hơn, gia đạo sẽ luôn êm ấm, phú quý.\n\n"
-        f"#### 4. Vận Trình Hiện Tại & Cẩm Nang Cải Vận Của Thầy\n"
-        f"- Bạn khởi Đại Vận ở mốc khoảng **{dayun.get('start_age_display', 'chưa rõ')}** theo hướng **{dayun.get('direction_text', '')}**.\n"
-        f"- **Bổ khuyết ngũ hành cải vận:** Hãy sử dụng các màu sắc và thói quen sinh hoạt bổ trợ cho ngũ hành bản mệnh (như gần gũi thiên nhiên, giữ tâm thế an hòa, năng làm việc thiện để dưỡng phúc).\n\n"
+        f"#### 5. Vận Khí Năm {current_year} & Những Năm Tới\n"
+        f"- {dayun_now_text}. Đây là nền tảng khí thế tổng quát chi phối mọi lĩnh vực trong giai đoạn này.\n"
+        f"- Hãy tận dụng thế mạnh của đại vận hiện tại để bứt phá trong chuyên môn, đồng thời cẩn trọng các năm có lưu niên Xung với Nhật Chủ.\n"
+        f"- **Thời điểm vàng:** Những tháng đầu năm Âm lịch thường là thời điểm khởi phát tốt nhất; hãy tập trung ra quyết định quan trọng trong khoảng Tháng 1-3 Âm lịch.\n\n"
+        f"#### 6. Lời Dặn Tâm Huyết Của Thầy\n"
+        f"- Bạn khởi Đại Vận theo hướng **{dayun.get('direction_text', '')}**, mỗi vận kéo dài 10 năm.\n"
+        f"- **Cải vận thực tế:** Mặc trang phục màu {element_color_advice['colors'].split(',')[0]}; đặt bàn làm việc và giường ngủ theo hướng {element_color_advice['dirs'].split(',')[0]}; tăng cường kết giao với người cùng ngũ hành tương sinh.\n"
+        f"- Hãy luôn nhớ: Lá số chỉ là khung trời — chính thái độ, hành động và lòng thiện lành của bạn mới là người viết tiếp câu chuyện cuộc đời.\n\n"
         f"=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n\n"
         f"### 1. Bảng Tứ Trụ Bát Tự\n"
         f"| Trụ | Can Chi | Thập Thần Can | Chi & Tàng Can | Ngũ Hành |\n"

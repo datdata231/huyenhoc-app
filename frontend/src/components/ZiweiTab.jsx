@@ -394,10 +394,35 @@ export default function ZiweiTab({ activeProfile, theme }) {
             </div>
 
             {interpreting ? (
-              <div className="py-8 text-center space-y-2">
-                <div className="w-6 h-6 border-2 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs text-purple-900 font-semibold">Bậc Thầy đang giải đoán Tam Phương Tứ Chính, Tứ Hóa & Vận Hạn...</p>
-                <p className="text-[11px] text-stone-600">Đang chuẩn bị Lời Bình Giải Thực Tế và Hồ Sơ Kỹ Thuật...</p>
+              <div className="py-10 flex flex-col items-center gap-4">
+                {/* Animated Seal */}
+                <div className="relative w-16 h-16">
+                  <div className="absolute inset-0 rounded-full border-4 border-purple-200 animate-spin" style={{borderTopColor: '#7c3aed', animationDuration: '1.5s'}} />
+                  <div className="absolute inset-2 rounded-full border-2 border-amber-200 animate-spin" style={{borderRightColor: '#b45309', animationDuration: '2s', animationDirection: 'reverse'}} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-2xl animate-pulse-subtle">⭐</span>
+                  </div>
+                </div>
+                {/* Steps */}
+                <div className="space-y-2 text-center">
+                  <p className="text-sm text-purple-900 font-bold">Bậc Thầy đang an sao và luận giải...</p>
+                  <div className="flex flex-col gap-1.5 text-left">
+                    {[
+                      { icon: '🌌', text: 'An sao 14 chính tinh vào 12 cung', done: true },
+                      { icon: '✨', text: 'Phân tích điểm mạnh & ngành nghề phù hợp', done: true },
+                      { icon: '📅', text: 'Đánh giá vận khí năm nay & tương lai', done: false },
+                      { icon: '✍️', text: 'Biên soạn Lời Thầy & Hồ Sơ Kỹ Thuật', done: false },
+                    ].map((step, i) => (
+                      <div key={i} className={`flex items-center gap-2 text-xs px-3 py-1.5 rounded-lg transition-all ${
+                        step.done ? 'bg-purple-50 text-purple-900' : 'bg-amber-50 text-amber-800 animate-pulse-subtle'
+                      }`}>
+                        <span>{step.icon}</span>
+                        <span className={step.done ? 'line-through opacity-60' : 'font-medium'}>{step.text}</span>
+                        {step.done && <span className="ml-auto text-purple-600">✓</span>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             ) : interpretation ? (
               <InterpretationView interpretation={interpretation} title="Luận Giải Tử Vi" />

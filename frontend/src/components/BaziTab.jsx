@@ -171,77 +171,103 @@ export default function BaziTab({ activeProfile, theme }) {
           {/* Warnings Banner */}
           <WarningsBanner warnings={calcResult.warnings} />
 
-          {/* Bảng Tứ Trụ Bát Tự (Phong cách Thẻ Ngọc Á Đông) */}
-          <div className="bg-[#FFFEFA] border border-amber-900/15 rounded-2xl p-4 shadow-sm overflow-hidden oriental-card">
-            <div className="flex items-center justify-between mb-3 border-b border-amber-900/10 pb-2">
-              <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                <span>Bảng Tứ Trụ Bát Tự (Can Chi & Thập Thần)</span>
+          {/* Bảng Tứ Trụ Bát Tự - Phiên bản nâng cấp */}
+          <div className="bg-[#FFFEFA] border border-amber-900/15 rounded-2xl overflow-hidden shadow-sm oriental-card">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-amber-50 via-[#FFFEFA] to-emerald-50 px-4 py-2.5 border-b border-amber-900/10 flex items-center justify-between">
+              <span className="text-xs font-bold text-stone-900 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-gradient-to-br from-amber-600 to-amber-700 text-white text-[10px] flex items-center justify-center font-bold shadow-xs">四</span>
+                <span>Tứ Trụ Bát Tự — Can Chi & Thập Thần</span>
               </span>
-              <span className="text-[11px] font-medium text-amber-800">
-                Sinh dương lịch: {calcResult.calendar?.solar?.ymd_hms}
+              <span className="text-[11px] font-medium text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                {calcResult.calendar?.solar?.ymd_hms}
               </span>
             </div>
 
-            <div className="grid grid-cols-4 gap-2 text-center text-xs">
+            {/* Row tiêu đề (Giờ → Ngày → Tháng → Năm - truyền thống) */}
+            <div className="grid grid-cols-4 text-center text-[10px] font-bold bg-[#FAF7F0] border-b border-amber-900/10">
+              {['hour', 'day', 'month', 'year'].map(pKey => (
+                <div key={pKey} className={`py-1.5 ${
+                  pKey === 'day' ? 'bg-emerald-100/60 text-emerald-900 border-x border-emerald-300/50' : 'text-stone-500'
+                }`}>
+                  {{ hour: '時 Giờ', day: '日 Ngày', month: '月 Tháng', year: '年 Năm' }[pKey]}
+                </div>
+              ))}
+            </div>
+
+            {/* Can (Stem) Row */}
+            <div className="grid grid-cols-4 text-center border-b border-amber-900/08">
               {['hour', 'day', 'month', 'year'].map((pKey) => {
                 const pillar = fp?.[pKey];
-                if (!pillar) return null;
+                if (!pillar) return <div key={pKey} />;
                 const isDay = pKey === 'day';
-                const pTitle = { hour: 'Trụ Giờ', day: 'Trụ Ngày', month: 'Trụ Tháng', year: 'Trụ Năm' }[pKey];
                 const stemMeta = STEM_MAP[pillar.stem] || {};
-                const branchMeta = BRANCH_MAP[pillar.branch] || {};
                 const shishenMeta = SHISHEN_MAP[pillar.stem_shishen] || {};
-
                 return (
-                  <div
-                    key={pKey}
-                    className={`p-2.5 rounded-xl border flex flex-col justify-between transition-all ${
-                      isDay
-                        ? 'bg-emerald-50/70 border-emerald-600/50 shadow-md ring-2 ring-emerald-500/25'
-                        : 'bg-[#FAF7F0] border-amber-900/15 hover:border-amber-900/30'
-                    }`}
-                  >
-                    {/* Header: Trụ & Dấu triện Bản Thân */}
-                    <div className="flex items-center justify-center gap-1 mb-1">
-                      <span className={`text-[10px] font-bold ${isDay ? 'text-emerald-900' : 'text-slate-600'}`}>
-                        {pTitle}
-                      </span>
-                      {isDay && <span className="seal-stamp text-[8px] py-0 px-1">BẢN THÂN</span>}
-                    </div>
+                  <div key={pKey} className={`py-3 px-1.5 flex flex-col items-center gap-1 ${
+                    isDay ? 'bg-emerald-50/60 border-x border-emerald-300/40' : ''
+                  }`}>
+                    {/* Thập Thần badge */}
+                    <span className={`text-[9px] px-1.5 py-0.5 rounded border font-bold leading-tight truncate max-w-full ${
+                      shishenMeta.color || 'bg-amber-100 text-amber-900 border-amber-300'
+                    }`}>
+                      {pillar.stem_vn_shishen || '—'}
+                    </span>
+                    {/* Hán tự Can lớn */}
+                    <span className={`text-3xl font-bold font-serif leading-none ${
+                      stemMeta.color || 'text-amber-900'
+                    } ${isDay ? 'drop-shadow-sm' : ''}`}>
+                      {pillar.stem}
+                    </span>
+                    {/* Tên Việt */}
+                    <span className="text-[11px] font-bold text-stone-800">{pillar.stem_vn}</span>
+                    <span className="text-[9px] text-stone-500">({stemMeta.element})</span>
+                    {isDay && <span className="seal-stamp text-[8px] py-0 px-1 mt-0.5">BẢN THÂN</span>}
+                  </div>
+                );
+              })}
+            </div>
 
-                    {/* Stem & Shishen */}
-                    <div className="my-1">
-                      <span className={`text-[10px] px-1.5 py-0.5 rounded border block mb-1 truncate ${shishenMeta.color || 'bg-amber-100 text-amber-900 border-amber-300'}`}>
-                        {pillar.stem_vn_shishen}
-                      </span>
-                      <div className="mt-1 text-2xl font-bold font-serif leading-none">
-                        <span className={stemMeta.color}>{pillar.stem}</span>
-                      </div>
-                      <span className="text-[11px] font-bold text-slate-800 block mt-1">{pillar.stem_vn}</span>
-                      <span className="text-[9px] text-slate-500 block">({stemMeta.element})</span>
-                    </div>
+            {/* Divider trang trí */}
+            <div className="h-px bg-gradient-to-r from-transparent via-amber-400/40 to-transparent mx-4" />
 
-                    <div className="w-full border-t border-amber-900/10 my-1.5" />
+            {/* Chi (Branch) Row */}
+            <div className="grid grid-cols-4 text-center border-b border-amber-900/08">
+              {['hour', 'day', 'month', 'year'].map((pKey) => {
+                const pillar = fp?.[pKey];
+                if (!pillar) return <div key={pKey} />;
+                const isDay = pKey === 'day';
+                const branchMeta = BRANCH_MAP[pillar.branch] || {};
+                return (
+                  <div key={pKey} className={`py-3 px-1.5 flex flex-col items-center gap-1 ${
+                    isDay ? 'bg-emerald-50/60 border-x border-emerald-300/40' : ''
+                  }`}>
+                    <ZodiacBadge branch={pillar.branch} size="md" showHanzi={true} />
+                    <span className="text-[12px] font-bold text-stone-900 mt-0.5">{pillar.branch_vn}</span>
+                    <span className="text-[9px] text-amber-800 font-semibold">
+                      {branchMeta.animal} • {branchMeta.element}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
 
-                    {/* Branch với Huy hiệu Linh Vật 12 Con Giáp Trực Quan */}
-                    <div className="my-1.5 flex flex-col items-center">
-                      <ZodiacBadge branch={pillar.branch} size="md" showHanzi={true} />
-                      <span className="text-[12px] font-bold text-slate-900 mt-1 block">
-                        {pillar.branch_vn}
-                      </span>
-                      <span className="text-[10px] text-amber-900 font-semibold block">
-                        ({branchMeta.animal} • {branchMeta.element})
-                      </span>
-                    </div>
-
-                    {/* Hidden Stems (Tàng can) */}
-                    <div className="mt-2 pt-1.5 border-t border-amber-900/10 space-y-1">
-                      <span className="text-[9px] text-slate-500 block font-semibold">Tàng can:</span>
-                      {pillar.hidden_details?.map((hd, hIdx) => (
-                        <div key={hIdx} className="text-[10px] flex items-center justify-between text-slate-800 bg-white/80 px-1.5 py-0.5 rounded border border-amber-900/10">
+            {/* Tàng Can Row */}
+            <div className="grid grid-cols-4 text-center bg-[#FAF7F0]/60">
+              {['hour', 'day', 'month', 'year'].map((pKey) => {
+                const pillar = fp?.[pKey];
+                if (!pillar) return <div key={pKey} />;
+                const isDay = pKey === 'day';
+                return (
+                  <div key={pKey} className={`py-2.5 px-1 flex flex-col items-center gap-1 ${
+                    isDay ? 'bg-emerald-50/40 border-x border-emerald-300/30' : ''
+                  }`}>
+                    <span className="text-[9px] text-stone-400 font-semibold uppercase tracking-wide">Tàng Can</span>
+                    <div className="flex flex-col gap-0.5 w-full">
+                      {pillar.hidden_details?.slice(0, 3).map((hd, hIdx) => (
+                        <div key={hIdx} className="text-[9px] flex items-center justify-between bg-white/80 px-1.5 py-0.5 rounded border border-stone-200">
                           <span className="font-serif font-bold text-amber-900">{hd.stem}</span>
-                          <span className="text-[9px] text-slate-600">{hd.vn_shishen}</span>
+                          <span className="text-stone-500">{hd.vn_shishen}</span>
                         </div>
                       ))}
                     </div>
@@ -419,10 +445,35 @@ export default function BaziTab({ activeProfile, theme }) {
             </div>
 
             {interpreting ? (
-              <div className="py-8 text-center space-y-2">
-                <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs text-emerald-900 font-bold">Bậc Thầy đang thẩm định Nhật Chủ, Hỷ Dụng Thần & Đại Vận...</p>
-                <p className="text-[11px] text-slate-600">Đang biên soạn cả Lời Khuyên Đời Thường và Hồ Sơ Kỹ Thuật...</p>
+              <div className="py-10 flex flex-col items-center gap-4">
+                {/* Animated Seal */}
+                <div className="relative w-16 h-16">
+                  <div className="absolute inset-0 rounded-full border-4 border-amber-200 animate-spin" style={{borderTopColor: '#b45309', animationDuration: '1.5s'}} />
+                  <div className="absolute inset-2 rounded-full border-2 border-emerald-200 animate-spin" style={{borderRightColor: '#059669', animationDuration: '2s', animationDirection: 'reverse'}} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-2xl animate-pulse-subtle">☯</span>
+                  </div>
+                </div>
+                {/* Steps */}
+                <div className="space-y-2 text-center">
+                  <p className="text-sm text-amber-900 font-bold">Bậc Thầy đang luận đoán lá số...</p>
+                  <div className="flex flex-col gap-1.5 text-left">
+                    {[
+                      { icon: '🔥', text: 'Phân tích Nhật Chủ & Hỷ Dụng Thần', done: true },
+                      { icon: '🗺️', text: 'Luận giải màu sắc, hướng & nghề nghiệp', done: true },
+                      { icon: '📅', text: 'Đánh giá vận khí năm nay & 2 năm tới', done: false },
+                      { icon: '✍️', text: 'Biên soạn Lời Thầy & Hồ Sơ Kỹ Thuật', done: false },
+                    ].map((step, i) => (
+                      <div key={i} className={`flex items-center gap-2 text-xs px-3 py-1.5 rounded-lg transition-all ${
+                        step.done ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-800 animate-pulse-subtle'
+                      }`}>
+                        <span>{step.icon}</span>
+                        <span className={step.done ? 'line-through opacity-60' : 'font-medium'}>{step.text}</span>
+                        {step.done && <span className="ml-auto text-emerald-600">✓</span>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             ) : interpretation ? (
               <InterpretationView interpretation={interpretation} title="Luận Giải Bát Tự" />
