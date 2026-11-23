@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, GitCompare, Sparkles, CheckCircle2, ShieldAlert } from 'lucide-react';
 import { interpretCrossCheck } from '../utils/api';
 import DisclaimerFooter from './DisclaimerFooter';
+import InterpretationView from './InterpretationView';
 
 export default function CrossCheckModal({
   isOpen,
@@ -104,9 +105,7 @@ export default function CrossCheckModal({
           )}
 
           {result ? (
-            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs leading-relaxed text-slate-200 whitespace-pre-line">
-              {result}
-            </div>
+            <InterpretationView interpretation={result} title="Đối Chiếu Bát Tự & Tử Vi" />
           ) : (
             <div className="p-6 text-center text-xs text-slate-400 border border-dashed border-slate-800 rounded-xl">
               Nhấn nút <strong>"Đối Chiếu Ngay"</strong> để hệ thống so sánh điểm hội tụ giữa thế khí ngũ hành Bát Tự và tinh diệu cát hung Tử Vi.

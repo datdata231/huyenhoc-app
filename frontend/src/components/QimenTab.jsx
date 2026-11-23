@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import WarningsBanner from './WarningsBanner';
 import DisclaimerFooter from './DisclaimerFooter';
+import InterpretationView from './InterpretationView';
 import { calculateQimen, interpretQimen, saveHistory } from '../utils/api';
 import {
   QIMEN_DOORS_MAP, QIMEN_STARS_MAP, QIMEN_GODS_MAP, STEM_MAP, BRANCH_MAP,
@@ -510,12 +511,11 @@ export default function QimenTab({ activeProfile }) {
             {interpreting ? (
               <div className="py-8 text-center space-y-2">
                 <div className="w-6 h-6 border-2 border-amber-400 border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs text-slate-400">Đại sư đang tham chiếu Dụng Thần & soạn bài giải 7 mục bằng tiếng Việt...</p>
+                <p className="text-xs text-amber-300 font-medium">Bậc Thầy đang tham chiếu Dụng Thần & soạn bài giải bằng tiếng Việt...</p>
+                <p className="text-[11px] text-slate-400">Đang chuẩn bị cả Lời Khuyên Hành Động Thực Tế và Hồ Sơ Kỹ Thuật...</p>
               </div>
             ) : interpretation ? (
-              <div className="prose prose-invert prose-sm max-w-none text-xs leading-relaxed text-slate-200 whitespace-pre-line space-y-3">
-                {interpretation}
-              </div>
+              <InterpretationView interpretation={interpretation} title="Luận Giải Kỳ Môn" />
             ) : (
               <div className="text-center py-6 text-slate-500 text-xs">
                 Chưa có bài luận giải. Bấm nút phía trên để bắt đầu khởi bàn.

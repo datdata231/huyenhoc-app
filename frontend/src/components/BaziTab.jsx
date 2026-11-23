@@ -6,6 +6,8 @@ import {
 import WarningsBanner from './WarningsBanner';
 import DisclaimerFooter from './DisclaimerFooter';
 import CrossCheckModal from './CrossCheckModal';
+import ZodiacBadge from './ZodiacBadge';
+import InterpretationView from './InterpretationView';
 import { calculateBazi, calculateZiwei, interpretBazi, saveHistory } from '../utils/api';
 import { STEM_MAP, BRANCH_MAP, SHISHEN_MAP } from '../utils/vietnamese_terms';
 
@@ -215,13 +217,15 @@ export default function BaziTab({ activeProfile }) {
 
                     <div className="w-full border-t border-slate-800/80 my-1.5" />
 
-                    {/* Branch */}
-                    <div className="my-1">
-                      <div className="text-lg font-bold font-mono text-slate-100">
-                        <span className={branchMeta.color}>{pillar.branch}</span>
-                      </div>
-                      <span className="text-[11px] text-slate-300 block">{pillar.branch_vn}</span>
-                      <span className="text-[9px] text-slate-500 block">({branchMeta.animal} • {branchMeta.element})</span>
+                    {/* Branch với Linh Vật 12 Con Giáp Trực Quan */}
+                    <div className="my-1.5 flex flex-col items-center">
+                      <ZodiacBadge branch={pillar.branch} size="md" showHanzi={true} />
+                      <span className="text-[12px] font-bold text-slate-200 mt-1 block">
+                        {pillar.branch_vn}
+                      </span>
+                      <span className="text-[10px] text-amber-300/90 font-medium block">
+                        ({branchMeta.animal} • {branchMeta.element})
+                      </span>
                     </div>
 
                     {/* Hidden Stems */}
@@ -402,12 +406,11 @@ export default function BaziTab({ activeProfile }) {
             {interpreting ? (
               <div className="py-8 text-center space-y-2">
                 <div className="w-6 h-6 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs text-slate-400">Đại sư đang thẩm định Nhật Chủ, Hỷ Dụng Thần & Đại Vận...</p>
+                <p className="text-xs text-amber-300 font-medium">Bậc Thầy đang thẩm định Nhật Chủ, Hỷ Dụng Thần & Đại Vận...</p>
+                <p className="text-[11px] text-slate-400">Đang biên soạn cả Lời Khuyên Đời Thường và Hồ Sơ Kỹ Thuật...</p>
               </div>
             ) : interpretation ? (
-              <div className="prose prose-invert prose-sm max-w-none text-xs leading-relaxed text-slate-200 whitespace-pre-line space-y-3">
-                {interpretation}
-              </div>
+              <InterpretationView interpretation={interpretation} title="Luận Giải Bát Tự" />
             ) : (
               <div className="text-center py-6 text-slate-500 text-xs">
                 Chưa có bài luận giải. Bấm nút phía trên để bắt đầu luận đoán.

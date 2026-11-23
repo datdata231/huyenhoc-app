@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import WarningsBanner from './WarningsBanner';
 import DisclaimerFooter from './DisclaimerFooter';
+import ZodiacBadge from './ZodiacBadge';
+import InterpretationView from './InterpretationView';
 import { calculateZiwei, interpretZiwei, saveHistory } from '../utils/api';
 import {
   MAJOR_STARS_MAP, BRIGHTNESS_MAP, SIHUA_MAP, PALACE_NAMES_VN, BRANCH_MAP
@@ -247,7 +249,8 @@ export default function ZiweiTab({ activeProfile }) {
                   >
                     {/* Top Row: Palace Name, Stem-Branch, Decade Age */}
                     <div className="flex items-center justify-between text-xs pb-1 border-b border-slate-800/80">
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1.5">
+                        <ZodiacBadge branch={p.branch || (p.ganzhi && p.ganzhi[1])} size="sm" showHanzi={false} />
                         <span className={`font-bold ${isMing ? 'text-amber-400' : 'text-slate-200'}`}>
                           {p.name}
                         </span>
@@ -391,12 +394,11 @@ export default function ZiweiTab({ activeProfile }) {
             {interpreting ? (
               <div className="py-8 text-center space-y-2">
                 <div className="w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs text-slate-400">Đại sư đang giải đoán Tam Phương Tứ Chính, Tứ Hóa & Vận Hạn...</p>
+                <p className="text-xs text-purple-300 font-medium">Bậc Thầy đang giải đoán Tam Phương Tứ Chính, Tứ Hóa & Vận Hạn...</p>
+                <p className="text-[11px] text-slate-400">Đang chuẩn bị Lời Bình Giải Thực Tế và Hồ Sơ Kỹ Thuật...</p>
               </div>
             ) : interpretation ? (
-              <div className="prose prose-invert prose-sm max-w-none text-xs leading-relaxed text-slate-200 whitespace-pre-line space-y-3">
-                {interpretation}
-              </div>
+              <InterpretationView interpretation={interpretation} title="Luận Giải Tử Vi" />
             ) : (
               <div className="text-center py-6 text-slate-500 text-xs">
                 Chưa có bài luận giải. Bấm nút phía trên để bắt đầu an sao.

@@ -256,31 +256,29 @@ async def call_llm(system_prompt: str, user_content: str) -> Optional[str]:
 
 
 async def interpret_qimen(chart_data: Dict[str, Any], query_info: Dict[str, Any]) -> str:
-    """Luận giải Kỳ Môn Độn Giáp 100% bằng tiếng Việt theo đúng chuẩn 7 mục trong SKILL.md."""
+    """Luận giải Kỳ Môn Độn Giáp 100% bằng tiếng Việt với cấu trúc 2 tầng: Lời thầy bình giải & Hồ sơ kỹ thuật."""
     system_knowledge = load_qimen_knowledge()
     system_prompt = (
-        "Bạn là Chuyên gia Cao cấp về Kỳ Môn Độn Giáp phương Đông.\n"
-        "Nhiệm vụ của bạn là dựa HOÀN TOÀN vào kết quả tính toán đã có từ thuật toán cố định (đính kèm trong JSON) "
-        "để viết bài luận giải chuyên nghiệp HOÀN TOÀN BẰNG TIẾNG VIỆT tự nhiên, sâu sắc, khúc chiết.\n\n"
-        "YÊU CẦU NGÔN NGỮ (BẮT BUỘC TUÂN THỦ TUYỆT ĐỐI):\n"
-        "1. BÀI VIẾT PHẢI LÀ TIẾNG VIỆT 100%. Mọi danh từ riêng, thuật ngữ phong thủy, can chi, tên sao, tên cửa, tên thần "
-        "PHẢI ĐƯỢC VIẾT BẰNG PHIÊN ÂM HÁN-VIỆT THUẦN TÚY (Ví dụ: viết 'Trực Phù', 'Tử Môn', 'Thiên Nhuế', 'Phục Ngâm', "
-        "'Bính Ngọ', 'Âm Độn Trung Nguyên 8 Cục', 'Khảm Nhất Cung', 'Khôn Nhị Cung' - TUYỆT ĐỐI KHÔNG để nguyên chữ Hán như 死门, 天芮, 伏吟, 阴遁).\n"
-        "2. Không dùng từ ngữ hù dọa, mê tín (không nói 'tuyệt mạng', 'chắc chắn bại vong').\n"
-        "3. Cấu trúc bài luận PHẢI ĐỦ 7 MỤC theo đúng SKILL.md:\n"
-        "   1. Thông tin đã xác nhận (Việc cần xem, thời gian, phương vị, người hỏi)\n"
-        "   2. Quy tắc và khẩu kính định cục (Thời gia chuyển bàn, Dương/Âm độn, múi giờ)\n"
-        "   3. Tóm tắt bàn Kỳ Môn (Cục số, Tuần thủ, Trực Phù, Trực Sử, Không Vong, Ngựa trạm/Dịch Mã)\n"
-        "   4. Dụng thần và Căn cứ trọng tâm (Xác định rõ việc này lấy gì làm Dụng thần chính, cung nào, cửa nào, sao nào)\n"
-        "   5. Phán đoán cốt lõi (Khả năng thành bại, phân tích tương quan sinh khắc giữa đương số và sự việc)\n"
-        "   6. Phương vị / Thời cơ / Lời khuyên hành động cụ thể (Nên tiến hay thủ, hướng nào thuận lợi, giờ nào nên bắt đầu)\n"
-        "   7. Cảnh báo rủi ro & Lời khuyên thực tế (Ghim khối miễn trừ trách nhiệm chuẩn mực ở cuối)."
+        "Bạn là một Bậc Thầy Huyền Học Kỳ Môn Độn Giáp uyên thâm, đồng thời là cố vấn chiến lược đời sống thấu suốt.\n"
+        "Nhiệm vụ của bạn là dựa vào bàn cờ Kỳ Môn Độn Giáp (trong JSON) để viết bài phân tích TOÀN DIỆN BẰNG TIẾNG VIỆT 100%.\n\n"
+        "BÀI VIẾT BẮT BUỘC PHẢI ĐƯỢC CHIA THÀNH 2 PHẦN RÕ RỆT (SỬ DỤNG ĐÚNG 2 DÒNG TIÊU ĐỀ NÀY ĐỂ GIAO DIỆN TỰ ĐỘNG CHIA TAB):\n\n"
+        "=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n"
+        "(Văn phong của một bậc thầy nhiều kinh nghiệm đang ngồi đàm đạo trực tiếp với người tới xem lá số. "
+        "Nói thẳng vào vấn đề thực tế, dễ hiểu, ấm áp, sâu sắc, không dùng thuật ngữ cổ làm người xem bối rối. "
+        "Bao gồm: 1. Đánh giá trực diện sự việc (Việc bạn đang hỏi thuận hay nghịch, có thành công không?); "
+        "2. Thời cơ & Chiến lược (Lúc nào nên tiến mạnh, lúc nào nên dừng lại củng cố nội lực); "
+        "3. Phương vị cát lợi & Quý nhân tương trợ (Hướng nào xuất hành thuận lợi, ai là người giúp đỡ); "
+        "4. Lời dặn dò tâm huyết của Thầy để chuyển hóa hung hiểm thành cơ hội).\n\n"
+        "=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n"
+        "(Dành cho tra cứu chuyên sâu học thuật theo chuẩn SKILL.md: 1. Thông tin đã xác nhận; 2. Quy tắc định bàn; 3. Tóm tắt bàn Kỳ Môn; "
+        "4. Dụng Thần & Căn Cứ Trọng Tâm; 5. Phán đoán cốt lõi & Cách cục; 6. Phương vị & Cửa tương tác; 7. Cảnh báo kỹ thuật).\n\n"
+        "TUYỆT ĐỐI TUÂN THỦ: 100% Tiếng Việt thuần túy, dịch sạch mọi tên sao (Thiên Phụ, Thiên Bồng...), cửa (Khai Môn, Sinh Môn...), thần (Trực Phù, Cửu Thiên...)."
     )
 
     user_content = (
         f"DỮ LIỆU ĐƯƠNG SỐ & CÂU HỎI:\n{json.dumps(query_info, ensure_ascii=False, indent=2)}\n\n"
         f"DỮ LIỆU BÀN KỲ MÔN (JSON TÍNH TOÁN CỐ ĐỊNH TỪ SCRIPT):\n{json.dumps(chart_data, ensure_ascii=False, indent=2)}\n\n"
-        "Hãy viết bài luận giải hoàn chỉnh bằng Tiếng Việt 100% (không dùng chữ Hán) theo đúng 7 mục quy chuẩn."
+        "Hãy viết bài luận giải hoàn chỉnh bằng Tiếng Việt 100% (không dùng chữ Hán) theo đúng cấu trúc 2 phần quy chuẩn."
     )
 
     llm_result = await call_llm(system_prompt, user_content)
@@ -344,7 +342,34 @@ async def interpret_qimen(chart_data: Dict[str, Any], query_info: Dict[str, Any]
     time_stem_char = ganzhi.get("time", "")[0] if ganzhi.get("time") else ""
     time_stem_vn = STEM_VN.get(time_stem_char, time_stem_char)
 
+    is_fuyin = "Phục Ngâm" in patterns_text
+    is_fanyin = "Phản Ngâm" in patterns_text
+    
+    advice_qimen = (
+        "Thế cờ gặp Phục Ngâm — vạn sự nên án binh bất động, 'tĩnh dĩ đãi động'. Hãy hoàn thiện kế hoạch nội bộ, "
+        "kiểm tra kỹ giấy tờ, hợp đồng, tuyệt đối không nên mạo hiểm bung tiền hay khởi xướng dự án mới một cách nóng vội."
+        if is_fuyin else (
+            "Thế cờ gặp Phản Ngâm — ngoại cảnh dễ có biến động đảo chiều bất ngờ, việc tưởng xong lại phải làm lại. "
+            "Cần chuẩn bị phương án dự phòng (Plan B) và giữ tâm thế linh hoạt."
+            if is_fanyin else
+            "Thế cờ ở trạng thái bình ổn, tiến trình sự việc tùy thuộc vào sự chủ động và khả năng đàm phán khéo léo của bạn."
+        )
+    )
+
     return (
+        f"=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n\n"
+        f"Chào bạn, xét theo thời điểm khởi bàn việc bạn đang quan tâm ({query_info.get('question_type', 'Việc chung')} • mục tiêu: {query_info.get('question_goal', 'Xem xu thế')}):\n\n"
+        f"#### 1. Đánh Giá Trực Diện Sự Việc (Thuận Hay Nghịch?)\n"
+        f"- Cửa hành sự (Trực Sử) hiện rơi vào **Cửa {zhishi_door_vn}** ngự tại **{zhishi_palace_vn}**. "
+        f"Sao chỉ huy tổng quản (Trực Phù) là **Sao {zhifu_star_vn}** tại **{zhifu_palace_vn}**.\n"
+        f"- {advice_qimen}\n\n"
+        f"#### 2. Thời Cơ & Chiến Lược Của Bạn\n"
+        f"- **Tư thế hành động:** Tạm thời đặt việc củng cố nội lực, bảo vệ thành quả và trau dồi chuyên môn lên hàng đầu. Đừng để áp lực bên ngoài buộc bạn phải đưa ra quyết định vội vã.\n"
+        f"- **Quý nhân trợ lực:** Hãy chủ động tìm đến những người có uy tín, cấp trên hoặc bậc tiền bối để tham vấn (mang năng lượng của Trực Phù). Họ sẽ là điểm tựa soi đường cho bạn.\n\n"
+        f"#### 3. Phương Hướng & Lời Dặn Của Thầy\n"
+        f"- **Phương vị cát lành:** Khi cần xuất hành, hẹn đối tác hoặc suy ngẫm hướng đi, nên chọn hướng có Sinh Môn hoặc Khai Môn để đón nguồn sinh khí hanh thông.\n"
+        f"- **Phòng tránh:** Cẩn trọng các hướng rơi vào Không Vong (Chi {kongwang_vn}) — việc tiến hành ở hướng này dễ bị rơi vào trạng thái 'nửa chừng đứt gánh' hoặc hư danh vô thực.\n"
+        f"\n=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n\n"
         f"### 1. Thông tin đã xác nhận\n"
         f"- **Lĩnh vực cần xem:** {query_info.get('question_type', 'Việc chung')}\n"
         f"- **Mục tiêu phán đoán:** {query_info.get('question_goal', 'Xem xu thế thuận nghịch')}\n"
@@ -372,36 +397,36 @@ async def interpret_qimen(chart_data: Dict[str, Any], query_info: Dict[str, Any]
         f"- **Phương vị cát lợi:** Nên ưu tiên các phương vị có Sinh Môn (Cung {chart.get('door_index', {}).get('生门', 'chưa rõ')}) hoặc Khai Môn (Cung {chart.get('door_index', {}).get('开门', 'chưa rõ')}) khi cần xuất hành, đàm phán hay giao dịch ký kết.\n"
         f"- **Phòng tránh:** Tuyệt đối tránh hướng rơi vào Không Vong hoặc Môn Bức để không bị hao tổn tâm trí và tiền tài vô ích.\n"
         f"- **Tư thế hành động:** Khi gặp cục Phục Ngâm, tốt nhất nên 'tĩnh dĩ đãi động' (giữ thế tĩnh để chờ thời cơ), tập trung hoàn thiện nội lực thay vì nôn nóng mở rộng bộc phát.\n"
-        f"\n*(Ghi chú: Thêm `GEMINI_API_KEY` vào file `.env` để kích hoạt Đại sư AI phân tích sâu hơn theo ngữ cảnh riêng của bạn)*"
         f"{DISCLAIMER_QIMEN}"
     )
 
 
 async def interpret_ziwei(chart_data: Dict[str, Any], query_info: Dict[str, Any]) -> str:
-    """Luận giải Tử Vi Đẩu Số 100% bằng tiếng Việt theo đúng chuẩn SKILL.md."""
+    """Luận giải Tử Vi Đẩu Số 100% bằng tiếng Việt với cấu trúc 2 tầng: Lời thầy bình giải & Hồ sơ kỹ thuật."""
     system_knowledge = load_ziwei_knowledge()
     system_prompt = (
-        "Bạn là Chuyên gia Cao cấp Tử Vi Đẩu Số (Trường phái Tam Hợp dung hợp Tứ Hóa).\n"
-        "Nhiệm vụ của bạn là dựa vào kết quả tính toán an sao cố định (trong JSON) để viết bài luận giải "
-        "HOÀN TOÀN BẰNG TIẾNG VIỆT tự nhiên, sâu sắc, thực tế và dễ tiếp nhận cho đương số.\n\n"
-        "QUY TẮC CỐT LÕI (BẮT BUỘC TUÂN THỦ):\n"
-        "1. BÀI VIẾT PHẢI LÀ TIẾNG VIỆT 100%. Tên cung, tên sao, tên cách cục, Tứ Hóa đều dịch phiên âm Hán-Việt rõ ràng "
-        "(Ví dụ: viết 'Tử Vi', 'Thiên Cơ', 'Thái Dương', 'Vũ Khúc', 'Mệnh Cung', 'Quan Lộc', 'Hóa Lộc', 'Hóa Kỵ' - KHÔNG dùng chữ Hán).\n"
-        "2. Không dùng lời lẽ hù dọa, định mệnh tiêu cực. Hãy chuyển hóa sát khí thành thách thức, bài học và lời khuyên quản trị rủi ro.\n"
-        "3. Bố cục bài luận đúng thứ tự trong SKILL.md:\n"
-        "   1. Tổng luận Bản mệnh & Khí chất nền tảng (Mệnh cung, Thân cung, Ngũ Hành Cục, Mệnh Chủ, Thân Chủ)\n"
-        "   2. Tam phương tứ chính Mệnh Cung (Mệnh - Quan - Tài - Di: ưu thế bẩm sinh, thế đứng xã hội)\n"
-        "   3. Cấu trúc 14 Chính tinh (Miếu, Vượng, Đắc, Hãm) cùng Cát tinh / Sát tinh chủ chốt\n"
-        "   4. Tứ Hóa Năm Sinh (Hóa Lộc, Hóa Quyền, Hóa Khoa, Hóa Kỵ) & Cung vị tiếp nhận bài học lớn\n"
-        "   5. Phân tích trọng điểm các cung cốt lõi (Quan Lộc, Tài Bạch, Phu Thê, Phúc Đức)\n"
-        "   6. Vận hạn Đại Hạn & Lưu Niên\n"
-        "   7. Lời khuyên định hướng & Tu dưỡng (Đính kèm khối miễn trừ trách nhiệm ở cuối)."
+        "Bạn là Bậc Thầy Cao cấp Tử Vi Đẩu Số (Trường phái Tam Hợp dung hợp Tứ Hóa), đồng thời là chuyên gia tư vấn đời sống.\n"
+        "Nhiệm vụ của bạn là dựa vào lá số Tử Vi an sao cố định (trong JSON) để viết bài luận giải "
+        "HOÀN TOÀN BẰNG TIẾNG VIỆT tự nhiên, sâu sắc, thực tế.\n\n"
+        "BÀI VIẾT BẮT BUỘC PHẢI ĐƯỢC CHIA THÀNH 2 PHẦN RÕ RỆT (SỬ DỤNG ĐÚNG 2 DÒNG TIÊU ĐỀ NÀY ĐỂ GIAO DIỆN TỰ ĐỘNG CHIA TAB):\n\n"
+        "=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n"
+        "(Văn phong của một bậc thầy kinh nghiệm đang trực tiếp ngồi đàm đạo, luận bàn cho thân chủ tới xem lá số. "
+        "Nói thẳng vào đời sống thực tế, tâm lý, ấm áp, thấu đáo, dễ hiểu, tránh thuật ngữ cổ hủ. "
+        "Bao gồm: 1. Con người & Bản mệnh (Bạn là ai, hạt nhân tính cách bẩm sinh, thế đứng xã hội); "
+        "2. Công danh, Sự nghiệp & Tiền tài (Cung Quan Lộc, Tài Bạch: thế mạnh làm ăn, nguồn thu, cách giữ tiền); "
+        "3. Tình duyên & Gia đạo (Cung Phu Thê, Phúc Đức: nhân duyên, phong thái yêu thương, lời khuyên để hòa hợp); "
+        "4. Vận hạn & Lời dặn dò tâm huyết của Thầy (Hóa Kỵ năm sinh là bài học gì, cách chuyển hóa thách thức thành thành tựu lớn)).\n\n"
+        "=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n"
+        "(Dành cho tra cứu chuyên sâu học thuật theo chuẩn SKILL.md: 1. Tổng luận Bản mệnh & Khí chất; 2. Tam phương tứ chính; "
+        "3. Cấu trúc 14 Chính tinh Miếu Vượng Đắc Hãm & Cát/Sát tinh; 4. Tứ Hóa Năm Sinh; 5. Phân tích trọng điểm các cung; "
+        "6. Vận hạn Đại Hạn & Lưu Niên; 7. Lời khuyên định hướng & Tu dưỡng).\n\n"
+        "TUYỆT ĐỐI TUÂN THỦ: 100% Tiếng Việt thuần túy, dịch sạch mọi tên sao (Tử Vi, Thiên Cơ, Vũ Khúc...), cung vị (Mệnh, Phụ, Phúc...), hóa diệu (Hóa Lộc, Hóa Kỵ...)."
     )
 
     user_content = (
         f"THÔNG TIN ĐƯƠNG SỐ:\n{json.dumps(query_info, ensure_ascii=False, indent=2)}\n\n"
         f"LÁ SỐ TỬ VI (JSON TÍNH TOÁN CỐ ĐỊNH):\n{json.dumps(chart_data, ensure_ascii=False, indent=2)}\n\n"
-        "Hãy viết bài luận giải Tử Vi chuyên sâu bằng Tiếng Việt 100% theo cấu trúc chuẩn."
+        "Hãy viết bài luận giải Tử Vi chuyên sâu bằng Tiếng Việt 100% theo đúng cấu trúc 2 phần quy chuẩn."
     )
 
     llm_result = await call_llm(system_prompt, user_content)
@@ -448,7 +473,24 @@ async def interpret_ziwei(chart_data: Dict[str, Any], query_info: Dict[str, Any]
 
     direction_vn = "Thuận hành" if chart.get("decadal_direction") == "顺行" else "Nghịch hành"
 
+    p_name_display = query_info.get('profile_name') or 'bạn'
+
     return (
+        f"=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n\n"
+        f"Chào {p_name_display}, nhìn vào thế đứng 12 Cung và các vì tinh tú trên lá số Tử Vi của bạn, Thầy xin chia sẻ những nét đúc kết tâm huyết nhất:\n\n"
+        f"#### 1. Tổng Quan Bản Thân & Khí Chất Tiên Thiên\n"
+        f"- **Mệnh Cung ngự tại Chi {ming_branch_vn}** (Cục {ju.get('name', 'chưa rõ')}): "
+        f"Bạn là người có cá tính độc lập, tư duy mạch lạc và luôn có lòng tự trọng cao. "
+        f"Cung Thân cư tại {shen_palace_vn} cho thấy nửa đời sau bạn sẽ càng hướng về giá trị thực chất, chú trọng chiều sâu tư tưởng và sự nghiệp vững chắc.\n\n"
+        f"#### 2. Đường Công Danh, Sự Nghiệp & Tài Lộc\n"
+        f"- Cung Quan Lộc và Tài Bạch của bạn cho thấy bạn hợp với những công việc đòi hỏi trí tuệ, kỹ năng chuyên sâu hoặc vai trò quản lý mang tính độc lập.\n"
+        f"- **Tứ Hóa Năm Sinh:** {sihua_text}. Nơi có Hóa Lộc là dòng chảy phúc đức và cơ hội tài chính dồi dào, cần tận dụng để bứt phá.\n\n"
+        f"#### 3. Tình Duyên & Mối Quan Hệ\n"
+        f"- Trong giao tiếp và gia đạo, bạn là người tình cảm nhưng đôi khi biểu đạt hơi kín đáo hoặc có phần khắt khe do kỳ vọng cao. Hãy lắng nghe và chia sẻ chân thành để tạo sự đồng điệu bền lâu.\n\n"
+        f"#### 4. Vận Trình & Lời Dặn Của Thầy\n"
+        f"- Hãy chú ý cung vị đón nhận Hóa Kỵ năm sinh: Đây không phải là điều bất hạnh, mà chính là bài học lớn nhất mà cuộc đời thử thách để tôi luyện bạn thành người kiên cường và tài giỏi.\n"
+        f"- Trong giai đoạn vận hạn hiện tại ({horo_text}), nên chủ động học tập kỹ năng mới, mở rộng mối quan hệ tích cực và giữ tâm thế bình thản trước biến động.\n\n"
+        f"=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n\n"
         f"### 1. Tổng luận Bản Mệnh & Khí chất nền tảng\n"
         f"- **Mệnh Cung:** Ngự tại Chi `{ming_branch_vn}` (Can Chi: `{ming_ganzhi_vn}`).\n"
         f"- **Thân Cung:** Cư tại Cung `{shen_palace_vn}` (Chi `{shen_branch_vn}`).\n"
@@ -457,44 +499,41 @@ async def interpret_ziwei(chart_data: Dict[str, Any], query_info: Dict[str, Any]
         f"- **Chiều vận Đại hạn:** `{direction_vn}`\n\n"
         f"### 2. Tứ Hóa Năm Sinh (Điểm tựa & Thách thức tiên thiên)\n"
         f"- {sihua_text}\n"
-        f"*(Hóa Lộc chủ phúc duyên và nguồn tài chính; Hóa Quyền chủ năng lực hành động và quyền uy; Hóa Khoa chủ danh dự, thi cử, khoa bảng; Hóa Kỵ chủ tâm niệm dồn tụ, bài học cần tôi luyện).*\n\n"
+        f"*(Hóa Lộc chủ phúc duyên và tài chính; Hóa Quyền chủ hành động và uy quyền; Hóa Khoa chủ danh dự, trí tuệ; Hóa Kỵ chủ bài học cần tôi luyện).*\n\n"
         f"### 3. Vận trình Thời gian\n"
         f"{horo_text}\n\n"
         f"### 4. Lời khuyên định hướng & Quản trị rủi ro\n"
         f"- Thấu hiểu cung Mệnh để phát huy sở trường bẩm sinh; quan sát cung Thân để điều chỉnh định hướng nửa đời sau.\n"
-        f"- Chú trọng cung có Hóa Kỵ năm sinh: Đây là nơi bạn dễ hao tâm tổn trí nhất nhưng cũng chính là nơi ẩn chứa năng lượng bứt phá lớn nhất khi bạn đối diện với tính kỷ luật cao.\n"
-        f"\n*(Ghi chú: Thêm `GEMINI_API_KEY` vào file `.env` để kích hoạt luận giải AI toàn diện từng cung và sao)*"
+        f"- Chú trọng cung có Hóa Kỵ năm sinh để quản trị rủi ro tối ưu.\n"
         f"{DISCLAIMER_ZIWEI}"
     )
 
 
 async def interpret_bazi(chart_data: Dict[str, Any], query_info: Dict[str, Any]) -> str:
-    """Luận giải Bát Tự 100% bằng tiếng Việt theo đúng chuẩn 8 mục trong SKILL.md."""
+    """Luận giải Bát Tự 100% bằng tiếng Việt với cấu trúc 2 tầng: Lời thầy bình giải & Hồ sơ kỹ thuật."""
     system_knowledge = load_bazi_knowledge()
     system_prompt = (
-        "Bạn là Chuyên gia Cao cấp về Tứ Trụ Bát Tự (Trường phái Tử Bình chính tông).\n"
-        "Nhiệm vụ của bạn là dựa vào bảng Tứ Trụ, Thập Thần, Đại Vận đã tính toán cố định từ script (trong JSON) "
-        "để viết bài phân tích sâu sắc HOÀN TOÀN BẰNG TIẾNG VIỆT tự nhiên, mạch lạc, có tính đối chiếu cao.\n\n"
-        "QUY TẮC CỐT LÕI (BẮT BUỘC TUÂN THỦ):\n"
-        "1. BÀI VIẾT PHẢI LÀ TIẾNG VIỆT 100%. Tên can, tên chi, thập thần, ngũ hành đều dùng phiên âm Hán-Việt rõ ràng "
-        "(Ví dụ: viết 'Ất Hợi', 'Bính Tuất', 'Giáp Tuất', 'Tân Mùi', 'Tỷ Kiên', 'Kiếp Tài', 'Thực Thần', 'Thương Quan', "
-        "'Chính Quan', 'Thất Sát', 'Chính Ấn', 'Thiên Ấn' - KHÔNG dùng chữ Hán).\n"
-        "2. Không dùng từ ngữ mê tín, hù dọa tiêu cực ('khắc cha mẹ', 'sát thê', 'số bần hàn').\n"
-        "3. Bố cục bài luận ĐỦ 8 MỤC theo đúng SKILL.md:\n"
-        "   1. Bảng Tứ Trụ (Năm, Tháng, Ngày, Giờ kèm Can, Chi, Thập Thần, Tàng Can)\n"
-        "   2. Phân tích Nhật Chủ vượng suy & Cách cục\n"
-        "   3. Hỷ Dụng Thần & Kỵ Thần\n"
-        "   4. Cấu hình Thập Thần & Phân tích tính cách, sở trường\n"
-        "   5. Phân tích các phương diện cuộc sống (Sự nghiệp, Tài vận, Tình cảm gia đạo, Sức khỏe ngũ hành)\n"
-        "   6. Đại Vận & Lưu Niên tường giải\n"
-        "   7. Danh sách kiểm chứng sự kiện quá khứ (Past event checklist)\n"
-        "   8. Tổng kết cốt lõi, Điểm trọng yếu cần phòng tránh & Khối miễn trừ trách nhiệm."
+        "Bạn là Bậc Thầy Tử Bình Bát Tự uyên thâm, đồng thời là một chuyên gia thấu hiểu tâm lý nhân sinh sâu sắc.\n"
+        "Nhiệm vụ của bạn là dựa vào bảng Tứ Trụ, Thập Thần, Đại Vận (trong JSON) để viết bài phân tích TOÀN DIỆN BẰNG TIẾNG VIỆT 100%.\n\n"
+        "BÀI VIẾT BẮT BUỘC PHẢI ĐƯỢC CHIA THÀNH 2 PHẦN RÕ RỆT (SỬ DỤNG ĐÚNG 2 DÒNG TIÊU ĐỀ NÀY ĐỂ GIAO DIỆN TỰ ĐỘNG CHIA TAB):\n\n"
+        "=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n"
+        "(Văn phong của bậc thầy đang ngồi tâm tình, phân tích trực tiếp cho đương số tới xem lá số. "
+        "Hình tượng hóa ngũ hành thật sống động, giải thích bằng ngôn ngữ đời thường gần gũi, ấm áp, sâu sắc: "
+        "1. Con Người & Bản Mệnh (Ví dụ: Nhật chủ Giáp Mộc ví như cây tùng bách vươn cao hiên ngang, bản chất cương trực, chí khí lớn, trọng chữ tín... phân tích điểm mạnh cốt lõi và nét tính cách cần mềm mỏng dung hòa); "
+        "2. Công Danh, Sự Nghiệp & Tài Lộc (Năng khiếu kiếm tiền, nghề nghiệp tương hợp, nên đi theo hướng chuyên môn hay làm chủ đầu tư, lúc nào tài lộc vượng phát); "
+        "3. Tình Cảm & Đời Sống Gia Đạo (Nhân duyên, cách đối đãi bạn đời để hạnh phúc tròn đầy); "
+        "4. Vận Trình Hiện Tại & Lời Dặn Của Thầy (Đại vận đang ở đâu, chiến lược hành động: lúc nào nên tiến bung sức, lúc nào nên thu mình bồi đắp nội lực; phương pháp bổ khuyết ngũ hành cải vận thực tế trong ăn mặc, phương hướng, lối sống)).\n\n"
+        "=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n"
+        "(Dành cho tra cứu học thuật theo đúng 8 mục chuẩn mực SKILL.md: 1. Bảng Tứ Trụ Can Chi; 2. Phân tích Nhật Chủ vượng suy & Cách cục; "
+        "3. Hỷ Dụng Thần & Kỵ Thần; 4. Cấu hình Thập Thần & Tính cách; 5. Phân tích chi tiết các phương diện cuộc sống; "
+        "6. Đại Vận & Lưu Niên tường giải; 7. Danh sách kiểm chứng quá khứ; 8. Tổng kết & Miễn trừ trách nhiệm).\n\n"
+        "TUYỆT ĐỐI KHÔNG DÙNG CHỮ HÁN. Toàn bộ tên can, chi, thập thần, ngũ hành đều viết phiên âm Hán-Việt 100%."
     )
 
     user_content = (
         f"THÔNG TIN ĐƯƠNG SỐ:\n{json.dumps(query_info, ensure_ascii=False, indent=2)}\n\n"
         f"DỮ LIỆU TỨ TRỤ BÁT TỰ (JSON TÍNH TOÁN CỐ ĐỊNH):\n{json.dumps(chart_data, ensure_ascii=False, indent=2)}\n\n"
-        "Hãy viết bài luận giải Tứ Trụ hoàn chỉnh bằng Tiếng Việt 100% theo đúng 8 mục chuẩn mực."
+        "Hãy viết bài luận giải Tứ Trụ hoàn chỉnh bằng Tiếng Việt 100% theo đúng cấu trúc 2 phần quy chuẩn."
     )
 
     llm_result = await call_llm(system_prompt, user_content)
@@ -509,8 +548,39 @@ async def interpret_bazi(chart_data: Dict[str, Any], query_info: Dict[str, Any])
     wuxing = chart_data.get("wuxing_counts", {}).get("vn_summary", "")
     dayun = chart_data.get("dayun", {})
     interactions = chart_data.get("interactions", {})
+    p_name = query_info.get("profile_name") or "bạn"
+
+    # Hình tượng hóa Nhật chủ
+    dm_stem = dm.get("stem", "甲")
+    dm_desc = {
+        "甲": "Giáp Mộc là cây tùng bách đại thụ sừng sững giữa đất trời. Bạn mang khí chất của bậc lãnh tụ, chính trực, khẳng khái, che chở cho người khác nhưng đôi khi hơi cứng nhắc, cần học cách mềm mại thích ứng.",
+        "乙": "Ất Mộc là hoa cỏ dây leo mềm mại nhưng sức sống phi thường. Bạn linh hoạt, khéo léo, giỏi thích nghi và biết nắm bắt lòng người.",
+        "丙": "Bính Hỏa là vầng mặt trời rực rỡ, hào hiệp, nồng nhiệt, thích cống hiến quang minh nhưng đôi khi nôn nóng.",
+        "丁": "Đinh Hỏa là ngọn đèn đêm ấm áp, nội tâm sâu sắc, tỉ mỉ, sáng tạo và thấu cảm lòng người.",
+        "戊": "Mậu Thổ là núi non hùng vĩ, trầm tĩnh, kiên định, đáng tin cậy, nặng tình nghĩa nhưng đôi lúc bảo thủ.",
+        "己": "Kỷ Thổ là đất màu mỡ dung dưỡng vạn vật, bao dung, khiêm nhường, khéo lo toan chu tất mọi bề.",
+        "庚": "Canh Kim là thanh bảo kiếm sắc bén, quả quyết, dũng cảm, trọng nghĩa khí nhưng dễ bộc trực thẳng thắn quá mức.",
+        "辛": "Tân Kim là ngọc ngà châu báu lấp lánh, thanh lịch, tinh tế, có lòng tự tôn cao và gu thẩm mỹ sắc sảo.",
+        "壬": "Nhâm Thủy là đại dương bao la cuộn sóng, phóng khoáng, chí lớn, thông minh kiệt xuất và thích tự do.",
+        "癸": "Quý Thủy là sương mai thanh khiết, nhu hòa, tĩnh lặng, trực giác nhạy bén và có tài quan sát sâu xa.",
+    }.get(dm_stem, "Bản mệnh ngũ hành hài hòa, chứa đựng nhiều tiềm năng lớn lao.")
 
     return (
+        f"=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n\n"
+        f"Chào {p_name}, qua bảng Tứ Trụ Bát Tự gồm 4 Can và 4 Chi của bạn, Thầy xin gửi đến bạn bản phân tích gần gũi và chân thành nhất:\n\n"
+        f"#### 1. Bạn Là Ai? (Khí Chất & Bản Mệnh Nhật Chủ)\n"
+        f"- Bạn mang **Nhật Chủ {dm.get('vn', 'Giáp')} ({dm.get('vn_element', 'Mộc')} - {dm.get('yinyang', 'Dương')})**. {dm_desc}\n"
+        f"- Sinh vào tháng **{dm.get('born_in_month_vn', '')}**, khí ngũ hành của bạn {'rất vượng, đắc lệnh tháng giúp bạn có nội lực mạnh mẽ' if dm.get('is_dangling') else 'cần thêm sự bồi đắp và tương trợ từ môi trường xung quanh'}.\n\n"
+        f"#### 2. Đường Công Danh & Tài Lộc\n"
+        f"- Bảng phân bổ ngũ hành của bạn: **{wuxing}**.\n"
+        f"- Năng lượng của bạn thích hợp phát triển theo hướng chuyên gia có tầm ảnh hưởng hoặc người làm chủ tự thân. Bạn có óc nhìn nhận thực tế và khả năng xoay xở tài chính nhanh nhạy.\n"
+        f"- **Lời dặn về tài vận:** Tránh tâm lý đầu cơ nóng vội khi gặp những năm có Lục Xung. Hãy tập trung xây dựng tài sản dựa trên giá trị thực và chuyên môn cốt lõi.\n\n"
+        f"#### 3. Tình Duyên & Đời Sống Gia Đạo\n"
+        f"- Trong tình cảm, bạn là người chung thủy và có trách nhiệm lớn với gia đình. Đôi lúc sự thẳng thắn của bạn có thể vô tình làm người thương chạnh lòng; nếu biết lắng nghe và mềm mỏng hơn, gia đạo sẽ luôn êm ấm, phú quý.\n\n"
+        f"#### 4. Vận Trình Hiện Tại & Cẩm Nang Cải Vận Của Thầy\n"
+        f"- Bạn khởi Đại Vận ở mốc khoảng **{dayun.get('start_age_display', 'chưa rõ')}** theo hướng **{dayun.get('direction_text', '')}**.\n"
+        f"- **Bổ khuyết ngũ hành cải vận:** Hãy sử dụng các màu sắc và thói quen sinh hoạt bổ trợ cho ngũ hành bản mệnh (như gần gũi thiên nhiên, giữ tâm thế an hòa, năng làm việc thiện để dưỡng phúc).\n\n"
+        f"=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n\n"
         f"### 1. Bảng Tứ Trụ Bát Tự\n"
         f"| Trụ | Can Chi | Thập Thần Can | Chi & Tàng Can | Ngũ Hành |\n"
         f"|---|---|---|---|---|\n"
@@ -530,22 +600,26 @@ async def interpret_bazi(chart_data: Dict[str, Any], query_info: Dict[str, Any])
         f"- Các bước Đại Vận: " + " ➔ ".join([f"{dy.get('vn_ganzhi')} ({dy.get('start_age')}-{dy.get('end_age')}t)" for dy in dayun.get("pillars", [])[:6]]) + "...\n\n"
         f"### 5. Định hướng cốt lõi\n"
         f"- Nắm rõ ngũ hành Hỷ Thần để lựa chọn ngành nghề, đối tác và phong cách sống phù hợp nhằm bồi đắp khí lực cho bản thân.\n"
-        f"\n*(Ghi chú: Thêm `GEMINI_API_KEY` vào file `.env` để kích hoạt Đại sư AI phân tích tường giải 8 mục chi tiết)*"
         f"{DISCLAIMER_BAZI}"
     )
 
 
 async def interpret_cross_check(bazi_data: Dict[str, Any], ziwei_data: Dict[str, Any], profile_name: str, focus_topic: str) -> str:
-    """Đối chiếu chéo giữa Tứ Trụ Bát Tự và Tử Vi Đẩu Số 100% bằng tiếng Việt."""
+    """Đối chiếu chéo giữa Tứ Trụ Bát Tự và Tử Vi Đẩu Số 100% bằng tiếng Việt với cấu trúc 2 tầng."""
     system_prompt = (
-        "Bạn là Chuyên gia Nghiên cứu Huyền học Đông Phương hàng đầu, thông thạo cả Tứ Trụ Bát Tự và Tử Vi Đẩu Số.\n"
-        "Nhiệm vụ của bạn là ĐỐI CHIẾU CHÉO 2 môn phái cho cùng một lá số của đương số.\n"
-        "Quy tắc:\n"
-        "1. TOÀN BỘ BÀI VIẾT PHẢI BẰNG TIẾNG VIỆT 100%, không dùng chữ Hán.\n"
-        "2. Tìm ra ĐIỂM TƯƠNG ĐỒNG (Consensus) giữa 2 hệ thống: Nếu cả 2 đều chỉ ra cùng một xu thế, hãy làm nổi bật vì độ tin cậy rất cao.\n"
-        "3. Giải thích ĐIỂM BỔ KHUYẾT: Môn này nhìn thấy chi tiết gì mà môn kia chưa thể hiện hết.\n"
-        "4. Ngôn từ trang nhã, khách quan, không mê tín, đưa ra lời khuyên thực tế khả thi.\n"
-        "5. Ghim khối miễn trừ trách nhiệm ở cuối."
+        "Bạn là Bậc Thầy Nghiên cứu Huyền học Đông Phương hàng đầu, thông thạo cả Tứ Trụ Bát Tự và Tử Vi Đẩu Số.\n"
+        "Nhiệm vụ của bạn là ĐỐI CHIẾU CHÉO 2 môn phái cho cùng một lá số của đương số.\n\n"
+        "BÀI VIẾT BẮT BUỘC PHẢI ĐƯỢC CHIA THÀNH 2 PHẦN RÕ RỆT (SỬ DỤNG ĐÚNG 2 DÒNG TIÊU ĐỀ NÀY ĐỂ GIAO DIỆN TỰ ĐỘNG CHIA TAB):\n\n"
+        "=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n"
+        "(Văn phong của bậc thầy đang phân tích trực tiếp cho đương số: "
+        "1. Đúc kết tổng hòa (Bức tranh chung về con người và cuộc đời khi soi chiếu qua cả 2 môn); "
+        "2. Về chủ đề quan tâm ({focus_topic}): Đâu là cơ hội vàng lớn nhất, đâu là thách thức cần phòng tránh; "
+        "3. Lời khuyên hành động thực tế nhất để phát huy ưu thế).\n\n"
+        "=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n"
+        "(Dành cho tra cứu học thuật: 1. Điểm tương đồng cốt lõi (Consensus) giữa 2 hệ thống; "
+        "2. Điểm bổ khuyết (Tử Vi thấy gì mà Bát Tự chưa hiển lộ và ngược lại); "
+        "3. Bảng đối chiếu ngũ hành và tinh diệu).\n\n"
+        "TUYỆT ĐỐI KHÔNG DÙNG CHỮ HÁN. Toàn bộ bài viết bằng Tiếng Việt 100%."
     )
 
     user_content = (
@@ -553,7 +627,7 @@ async def interpret_cross_check(bazi_data: Dict[str, Any], ziwei_data: Dict[str,
         f"CHỦ ĐỀ QUAN TÂM: {focus_topic}\n\n"
         f"DỮ LIỆU BÁT TỰ:\n{json.dumps(bazi_data, ensure_ascii=False, indent=2)}\n\n"
         f"DỮ LIỆU TỬ VI:\n{json.dumps(ziwei_data, ensure_ascii=False, indent=2)}\n\n"
-        "Hãy viết bài đối chiếu chéo chuyên sâu bằng Tiếng Việt 100%."
+        "Hãy viết bài đối chiếu chéo chuyên sâu bằng Tiếng Việt 100% theo đúng cấu trúc 2 phần quy chuẩn."
     )
 
     llm_result = await call_llm(system_prompt, user_content)
@@ -564,6 +638,15 @@ async def interpret_cross_check(bazi_data: Dict[str, Any], ziwei_data: Dict[str,
 
     # Fallback
     return (
+        f"=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===\n\n"
+        f"Chào {profile_name}, khi đặt lá số Bát Tự (Tứ Trụ) và lá số Tử Vi Đẩu Số của bạn cạnh nhau để đối chiếu về chủ đề **'{focus_topic}'**, Thầy nhận thấy:\n\n"
+        f"#### 1. Bức Tranh Tổng Hòa Về Cuộc Đời Bạn\n"
+        f"- Cả hai môn phái đều khẳng định bạn là người có ý chí tự lập cao, năng lực chuyên môn sắc sảo và phẩm chất trung thực, khát khao tạo dựng sự nghiệp bền vững.\n"
+        f"- Bát Tự cho thấy cốt lõi nội lực của bạn (khí thế của Nhật Chủ), còn Tử Vi làm rõ các mối bang giao, cơ hội thăng tiến và cách ứng xử cụ thể với từng người trong xã hội.\n\n"
+        f"#### 2. Lời Giải Cho Chủ Đề '{focus_topic}'\n"
+        f"- Đây là thời điểm bạn nên phát huy tối đa thế mạnh chuyên môn, kiên trì theo đuổi mục tiêu trung hạn thay vì nhảy việc hoặc đổi hướng đột ngột.\n"
+        f"- Quý nhân của bạn chính là những người tôn trọng sự trung thực và thực lực của bạn.\n\n"
+        f"=== PHẦN II: HỒ SƠ THUẬT SỐ KỸ THUẬT ===\n\n"
         f"### Đối Chiếu Chéo: Bát Tự & Tử Vi Đẩu Số cho {profile_name}\n\n"
         f"#### 1. Tổng quan Trọng tâm Khảo sát\n"
         f"- **Chủ đề:** {focus_topic}\n"
@@ -575,6 +658,5 @@ async def interpret_cross_check(bazi_data: Dict[str, Any], ziwei_data: Dict[str,
         f"#### 3. Lời khuyên tổng hòa\n"
         f"- Dùng Bát Tự để nắm bắt khí thế ngũ hành vĩ mô và thời điểm khởi phát đại vận.\n"
         f"- Dùng Tử Vi để quan sát cụ thể các mối quan hệ nhân sinh, môi trường làm việc và các lĩnh vực đời sống.\n"
-        f"\n*(Ghi chú: Cấu hình `GEMINI_API_KEY` vào `.env` để kích hoạt báo cáo đối chiếu chuyên sâu do AI soạn thảo)*"
         f"{DISCLAIMER_ZIWEI}"
     )
