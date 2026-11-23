@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Sparkles, ScrollText, UserCheck, BookOpen, Copy, Check } from 'lucide-react';
+import MarkdownUIRenderer from './MarkdownUIRenderer';
 
 /**
- * Hiển thị bài Luận Giải theo chuẩn 2 góc nhìn:
- * 1. Lời Thầy Bình Giải (Dành cho người xem lá số - Dễ hiểu, ấm áp, thực tế)
+ * Hiển thị bài Luận Giải theo chuẩn 2 góc nhìn với giao diện Native UI:
+ * 1. Lời Thầy Bình Giải (Dành cho người xem lá số - Thẻ UI trực quan, lời dặn ấm áp, không còn ký hiệu ### hay ***)
  * 2. Hồ Sơ Thuật Số Kỹ Thuật (Dành cho tra cứu chuyên sâu học thuật)
  */
 export default function InterpretationView({ interpretation, title = "Bài Luận Giải" }) {
@@ -19,11 +20,9 @@ export default function InterpretationView({ interpretation, title = "Bài Luậ
 
   if (interpretation.includes(divider)) {
     const parts = interpretation.split(divider);
-    // Bỏ dòng tiêu đề phần I nếu có
     masterContent = parts[0].replace('=== PHẦN I: LỜI THẦY BÌNH GIẢI DÀNH CHO BẠN ===', '').trim();
     technicalContent = parts[1].trim();
   } else {
-    // Nếu chưa có phân tách (bản ghi cũ), mặc định đưa vào tab Lời Thầy
     masterContent = interpretation;
     technicalContent = interpretation;
   }
@@ -36,7 +35,7 @@ export default function InterpretationView({ interpretation, title = "Bài Luậ
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {/* 2 Chế độ xem: Lời Thầy vs Hồ Sơ Kỹ Thuật */}
       <div className="flex items-center justify-between border-b border-amber-900/15 pb-2">
         <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#F5F1E8] border border-amber-900/15">
@@ -77,26 +76,22 @@ export default function InterpretationView({ interpretation, title = "Bài Luậ
 
       {/* Nội dung tương ứng */}
       {activeSubTab === 'master' ? (
-        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#FFFDF9] via-[#FAF6ED] to-[#F5EFE3] border border-amber-900/20 shadow-md space-y-3">
-          <div className="flex items-center gap-2 text-amber-900 text-xs sm:text-sm font-bold pb-2 border-b border-amber-900/15">
+        <div className="space-y-3.5">
+          <div className="flex items-center gap-2 text-amber-900 text-xs sm:text-sm font-bold px-1">
             <Sparkles className="w-4 h-4 text-amber-700 shrink-0" />
             <span>Tâm Thư & Lời Bình Giải Của Bậc Thầy Huyền Học</span>
           </div>
 
-          <div className="text-xs sm:text-sm leading-relaxed text-stone-800 whitespace-pre-line space-y-3 font-normal">
-            {masterContent}
-          </div>
+          <MarkdownUIRenderer text={masterContent} mode="master" />
         </div>
       ) : (
-        <div className="p-4 rounded-2xl bg-[#F9F7F2] border border-stone-300 shadow-sm space-y-3">
-          <div className="flex items-center gap-2 text-sky-900 text-xs font-bold pb-2 border-b border-stone-300">
+        <div className="space-y-3.5">
+          <div className="flex items-center gap-2 text-sky-900 text-xs font-bold px-1">
             <BookOpen className="w-4 h-4 text-sky-700 shrink-0" />
             <span>Hồ Sơ Kỹ Thuật & Căn Cứ Học Thuật Cổ Điển</span>
           </div>
 
-          <div className="text-xs leading-relaxed text-stone-800 whitespace-pre-line space-y-3 font-mono">
-            {technicalContent}
-          </div>
+          <MarkdownUIRenderer text={technicalContent} mode="technical" />
         </div>
       )}
     </div>
